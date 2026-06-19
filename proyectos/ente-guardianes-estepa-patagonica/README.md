@@ -66,7 +66,23 @@ Recomendado: horizontales ~1600px, verticales ~1200px, `.jpg`, < 500 KB.
 ## Editar el copy
 
 Todo el texto vive en `index.html`. Está organizado por secciones comentadas
-(`HERO`, `QUÉ ES`, `CÓMO FUNCIONA`, `GALERÍA`, `HITOS`, `IMPACTO`, `CTA`, `FOOTER`).
+(`HERO`, `QUÉ ES`, `CÓMO FUNCIONA`, `GALERÍA`, `HITOS`, `IMPACTO`, `CTA`,
+`PARA EMPRESAS E INVERSORES`, `FOOTER`).
+
+### Sección comercial "Para empresas e inversores"
+Tres tarjetas (fondo verde, antes del footer) dirigidas a B2B:
+1. **Financiadores** → "Hablemos de inversión"
+2. **Compradores de créditos** → "Quiero comprar créditos"
+3. **Offtake anticipado (forward / ERPA)** → "Conversemos un offtake"
+
+Por compliance, **no** incluyen precios, volúmenes de VCUs ni proyecciones de retorno
+(eso se conversa en privado). La equivalencia "1 VCU = 1 tCO₂e" es la definición estándar
+del crédito, no una cifra del proyecto.
+
+**Ruteo:** los tres botones (y el CTA general) apuntan a
+`https://forestblock.tech/contact/contacto`. Si querés separar el canal comercial del de
+prensa/productores, cambiá esos `href` por un mail dedicado, por ejemplo:
+`mailto:comercial@forestblock.tech?subject=Guardianes%20de%20la%20Estepa%20—%20Inversión`.
 
 ### Restricciones de comunicación (cumplir siempre)
 Es comunicación pública de un proyecto **en validación**. **No** agregar: cantidades de VCUs,
