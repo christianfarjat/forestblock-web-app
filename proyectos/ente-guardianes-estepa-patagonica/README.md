@@ -13,16 +13,30 @@ Construida desde cero a partir del `HANDOFF.md` (no requiere build ni framework)
 
 ```
 ente-guardianes-estepa-patagonica/
-├── index.html        ← la página completa (HTML + CSS + JS embebidos)
-├── fonts/            ← Aeonik (la tipografía del sitio), cargada vía @font-face local
+├── index.html         ← landing completa en español (HTML + CSS + JS embebidos)
+├── index.en.html      ← misma landing en inglés (para inversores/compradores internacionales)
+├── one-pager.html     ← one-pager comercial A4 imprimible a PDF (español)
+├── one-pager.en.html  ← one-pager comercial A4 imprimible a PDF (inglés)
+├── fonts/             ← Aeonik (la tipografía del sitio), cargada vía @font-face local
 │   ├── Aeonik-Light.otf
 │   ├── Aeonik-Regular.otf
 │   ├── Aeonik-Medium.otf
 │   └── Aeonik-Bold.otf
-├── images/           ← acá van las fotos (ver lista abajo). Si faltan, la página
-│                       degrada a un placeholder con degradado, sin romperse.
+├── images/            ← acá van las fotos (ver lista abajo). Si faltan, la página
+│                        degrada a un placeholder con degradado, sin romperse.
 └── README.md
 ```
+
+### Idiomas (ES / EN)
+`index.html` (ES) e `index.en.html` (EN) son equivalentes. El topbar tiene un selector
+**ES/EN** y el `<head>` incluye `hreflang` para SEO. Subí ambos a la misma carpeta.
+
+### One-pager comercial (PDF)
+`one-pager.html` y `one-pager.en.html` son documentos **A4 listos para enviar por mail**.
+Abrilos en el navegador y usá el botón **“Descargar / Imprimir PDF”** (o `Ctrl/Cmd+P` →
+Guardar como PDF). Están pensados para inversores, compradores de créditos y offtake, con
+los mismos tres mensajes comerciales de la landing. No publican precios, volúmenes de VCUs
+ni proyecciones de retorno.
 
 ## Cómo subirlo a Hostinger
 
@@ -79,10 +93,14 @@ Por compliance, **no** incluyen precios, volúmenes de VCUs ni proyecciones de r
 (eso se conversa en privado). La equivalencia "1 VCU = 1 tCO₂e" es la definición estándar
 del crédito, no una cifra del proyecto.
 
-**Ruteo:** los tres botones (y el CTA general) apuntan a
-`https://forestblock.tech/contact/contacto`. Si querés separar el canal comercial del de
-prensa/productores, cambiá esos `href` por un mail dedicado, por ejemplo:
-`mailto:comercial@forestblock.tech?subject=Guardianes%20de%20la%20Estepa%20—%20Inversión`.
+**Ruteo:** los tres botones comerciales abren un mail a **`comercial@forestblock.tech`** con
+el asunto pre-cargado según el caso (inversión / compra de créditos / offtake). El CTA general
+"Sumate a los Guardianes" apunta a `https://forestblock.tech/contact/contacto`.
+
+> ⚠️ **Confirmá la dirección de mail.** Usé `comercial@forestblock.tech` como placeholder.
+> Si es otra (o preferís el formulario `/contact/contacto`), reemplazá los `href` que empiezan
+> con `mailto:comercial@forestblock.tech` en `index.html`, `index.en.html`, `one-pager.html`
+> y `one-pager.en.html`.
 
 ### Restricciones de comunicación (cumplir siempre)
 Es comunicación pública de un proyecto **en validación**. **No** agregar: cantidades de VCUs,
