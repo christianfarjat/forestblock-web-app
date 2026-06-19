@@ -25,6 +25,27 @@ La carpeta `proyectos/ente-guardianes-estepa-patagonica/` ya es un sitio estáti
 > el one-pager como `/one-pager`). Si preferís conservar las extensiones `.html`, borrá ese
 > archivo o poné `"cleanUrls": false`.
 
+> **Importante:** el paso 3 (Root Directory) es el que evita que Vercel intente compilar la
+> web-app Next.js. Como red de seguridad, el repo incluye un `vercel.json` en la **raíz** que
+> desactiva el build de Next y sirve esta carpeta como sitio estático — así el deploy funciona
+> **aunque te olvides de setear el Root Directory**.
+
+---
+
+## Troubleshooting
+
+**Síntoma:** el build falla con `Detected Next.js version: 15.0.7`, `next build`, y errores de
+ESLint en `src/app/AuthGuard.tsx`, `src/components/NewFeature/...`, `Sidebar/Menu.tsx`, etc.
+
+**Causa:** Vercel está compilando la **web-app Next.js** (la raíz del repo) en lugar de servir la
+landing estática. Esos errores son del código de la app, no de la landing.
+
+**Solución (cualquiera de las dos):**
+1. **Settings → General → Root Directory** = `proyectos/ente-guardianes-estepa-patagonica` →
+   **Save** → **Redeploy** (desmarcá "use existing build cache").
+2. O dejá el Root Directory en la raíz: el `vercel.json` de la raíz del repo ya fuerza
+   `framework: null` + `outputDirectory` a la carpeta de la landing, sin build. Solo **Redeploy**.
+
 ### Opción B — CLI (si preferís hacerlo desde tu terminal)
 
 ```bash
