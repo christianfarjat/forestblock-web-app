@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guardianes de la Estepa Patagónica | ForestBlock</title>
+  <meta name="description" content="Ganadería ovina regenerativa y carbono de suelo en la Meseta de Somuncurá, Río Negro. 61.346 ha, 12 establecimientos. Codesarrollado entre el ENTE y ForestBlock bajo Verra VM0042 + CCB." />
+
+  <!-- Open Graph / SEO -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Guardianes de la Estepa Patagónica" />
+  <meta property="og:description" content="Producción y conservación, juntas. Proyecto de carbono en la Meseta de Somuncurá." />
+  <meta property="og:url" content="https://forestblock.tech/proyectos/ente-guardianes-estepa-patagonica" />
+  <meta property="og:image" content="https://forestblock.tech/proyectos/ente-guardianes-estepa-patagonica/images/og.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://forestblock.tech/proyectos/ente-guardianes-estepa-patagonica" />
+
+  <style>
+    /* ============================================================
+       Fuentes — Aeonik (la del sitio), fallback Manrope/sistema
+       ============================================================ */
+    @font-face {
+      font-family: "Aeonik";
+      src: url("./fonts/Aeonik-Light.otf") format("opentype");
+      font-weight: 300; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: "Aeonik";
+      src: url("./fonts/Aeonik-Regular.otf") format("opentype");
+      font-weight: 400; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: "Aeonik";
+      src: url("./fonts/Aeonik-Medium.otf") format("opentype");
+      font-weight: 500; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: "Aeonik";
+      src: url("./fonts/Aeonik-Bold.otf") format("opentype");
+      font-weight: 700; font-style: normal; font-display: swap;
+    }
+
+    /* ============================================================
+       Design tokens (extraídos de forestblock.tech, jun-2026)
+       ============================================================ */
+    :root {
+      --eg-bg:          #FCFFF6;
+      --eg-lime:        #DAFAA1;
+      --eg-lime-bright: #BFF179;
+      --eg-forest:      #192C1F;
+      --eg-forest-2:    #243B2C;
+      --eg-grey:        #76756E;
+
+      --eg-radius:      28px;
+      --eg-radius-sm:   18px;
+      --eg-pill:        999px;
+
+      --eg-font: "Aeonik", "Manrope", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+
+      --eg-maxw: 1180px;
+      --eg-gap:  clamp(16px, 2.5vw, 28px);
+    }
+
+    /* ============================================================
+       Base
+       ============================================================ */
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+    body.eg {
+      margin: 0;
+      font-family: var(--eg-font);
+      color: var(--eg-forest);
+      background: var(--eg-bg);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+    .eg img { max-width: 100%; display: block; }
+    .eg a { color: inherit; }
+
+    .eg-wrap {
+      width: 100%;
+      max-width: var(--eg-maxw);
+      margin: 0 auto;
+      padding: 0 clamp(18px, 5vw, 40px);
+    }
+
+    .eg-section { padding: clamp(56px, 9vw, 110px) 0; }
+
+    /* Alternancia de fondos */
+    .eg-bg-off    { background: var(--eg-bg); }
+    .eg-bg-lime   { background: var(--eg-lime); }
+    .eg-bg-forest { background: var(--eg-forest); color: var(--eg-bg); }
+
+    .eg-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 14px; font-weight: 500; letter-spacing: .01em;
+      background: rgba(25,44,31,.08);
+      color: var(--eg-forest-2);
+      padding: 8px 16px; border-radius: var(--eg-pill);
+      margin: 0 0 22px;
+    }
+    .eg-bg-forest .eg-eyebrow { background: rgba(255,255,255,.12); color: var(--eg-bg); }
+
+    h1, h2, h3 { font-weight: 700; line-height: 1.08; margin: 0; letter-spacing: -.02em; }
+    .eg-h1 { font-size: clamp(38px, 6.5vw, 72px); }
+    .eg-h2 { font-size: clamp(28px, 4.2vw, 46px); margin-bottom: 18px; }
+    .eg-h3 { font-size: clamp(19px, 2vw, 23px); }
+
+    .eg-lead { font-size: clamp(17px, 1.8vw, 21px); color: var(--eg-forest-2); max-width: 60ch; }
+    .eg-bg-forest .eg-lead { color: rgba(252,255,246,.82); }
+    .eg-kicker { font-size: 14px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--eg-grey); margin: 0 0 14px; }
+    .eg-bg-forest .eg-kicker { color: var(--eg-lime-bright); }
+    .eg-muted { color: var(--eg-grey); }
+
+    /* ============================================================
+       Header mínimo (la página global aporta el header real;
+       este es para el alojamiento standalone en Hostinger)
+       ============================================================ */
+    .eg-topbar {
+      position: sticky; top: 0; z-index: 50;
+      background: var(--eg-lime-bright);
+      border-bottom: 1px solid rgba(25,44,31,.10);
+    }
+    .eg-topbar__inner {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; padding: 14px clamp(18px, 5vw, 40px);
+      max-width: var(--eg-maxw); margin: 0 auto;
+    }
+    .eg-brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; text-decoration: none; letter-spacing: -.01em; }
+    .eg-brand .eg-dot { width: 11px; height: 11px; border-radius: 50%; background: var(--eg-forest); display: inline-block; }
+    .eg-topnav { display: flex; align-items: center; gap: 10px; }
+    .eg-topnav a { text-decoration: none; font-size: 15px; font-weight: 500; padding: 8px 12px; border-radius: var(--eg-pill); }
+    .eg-topnav a.eg-back { color: var(--eg-forest-2); }
+    .eg-topnav a.eg-back:hover { background: rgba(25,44,31,.08); }
+
+    /* ============================================================
+       Botones / pills
+       ============================================================ */
+    .eg-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      font-family: inherit; font-size: 16px; font-weight: 600;
+      padding: 14px 26px; border-radius: var(--eg-pill);
+      text-decoration: none; cursor: pointer; border: 1.5px solid transparent;
+      transition: transform .12s ease, background .2s ease, box-shadow .2s ease;
+      white-space: nowrap;
+    }
+    .eg-btn:hover { transform: translateY(-1px); }
+    .eg-btn:active { transform: translateY(0); }
+    .eg-btn--primary { background: var(--eg-forest); color: var(--eg-bg); }
+    .eg-btn--primary:hover { box-shadow: 0 10px 26px rgba(25,44,31,.22); }
+    .eg-btn--ghost { background: transparent; color: var(--eg-forest); border-color: var(--eg-forest); }
+    .eg-btn--ghost:hover { background: rgba(25,44,31,.06); }
+    .eg-btn--onforest { background: var(--eg-lime-bright); color: var(--eg-forest); }
+    .eg-btn--onforest:hover { box-shadow: 0 10px 26px rgba(0,0,0,.25); }
+
+    .eg-pill {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 14px; font-weight: 500;
+      padding: 8px 15px; border-radius: var(--eg-pill);
+      background: var(--eg-bg); border: 1px solid rgba(25,44,31,.14); color: var(--eg-forest-2);
+    }
+
+    /* focus visible accesible */
+    .eg a:focus-visible, .eg button:focus-visible, .eg .eg-btn:focus-visible {
+      outline: 3px solid var(--eg-forest);
+      outline-offset: 3px; border-radius: 6px;
+    }
+    .eg-bg-forest a:focus-visible, .eg-bg-forest button:focus-visible { outline-color: var(--eg-lime-bright); }
+
+    /* ============================================================
+       HERO
+       ============================================================ */
+    .eg-hero { background: var(--eg-lime-bright); padding-top: clamp(48px, 7vw, 84px); }
+    .eg-hero__cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
+    .eg-hero .eg-lead { margin-top: 20px; }
+
+    .eg-statband {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+      margin-top: clamp(40px, 6vw, 64px);
+    }
+    .eg-stat {
+      background: var(--eg-bg); border-radius: var(--eg-radius);
+      padding: 22px 22px 20px;
+      border: 1px solid rgba(25,44,31,.06);
+    }
+    .eg-stat__value { font-size: clamp(26px, 3.4vw, 38px); font-weight: 700; letter-spacing: -.03em; }
+    .eg-stat__label { font-size: 14px; color: var(--eg-grey); margin-top: 6px; }
+
+    /* ============================================================
+       Splits 2col (Qué es, Comunidad)
+       ============================================================ */
+    .eg-split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 64px); align-items: center; }
+    .eg-split--rev .eg-split__media { order: -1; }
+    .eg-prose p { margin: 0 0 16px; font-size: clamp(16px, 1.5vw, 18px); color: var(--eg-forest-2); }
+    .eg-prose p:last-child { margin-bottom: 0; }
+
+    /* ============================================================
+       Shot — figura con imagen + fallback degradado
+       ============================================================ */
+    .eg-shot {
+      position: relative; margin: 0;
+      border-radius: var(--eg-radius); overflow: hidden;
+      background: linear-gradient(135deg, var(--eg-forest) 0%, var(--eg-forest-2) 45%, #3c5a43 100%);
+      aspect-ratio: 4 / 3;
+      box-shadow: 0 18px 40px rgba(25,44,31,.16);
+    }
+    .eg-shot--tall { aspect-ratio: 3 / 4; }
+    .eg-shot--wide { aspect-ratio: 16 / 10; }
+    .eg-shot__img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; z-index: 2;
+    }
+    .eg-shot__ph {
+      position: absolute; inset: 0; z-index: 1;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 8px; text-align: center; padding: 18px;
+      color: rgba(252,255,246,.85);
+    }
+    .eg-shot__ph-icon { font-size: 34px; opacity: .9; }
+    .eg-shot__ph-text { font-size: 13px; max-width: 24ch; line-height: 1.4; }
+    .eg-shot__cap {
+      position: absolute; left: 0; right: 0; bottom: 0; z-index: 3;
+      padding: 30px 18px 14px;
+      background: linear-gradient(to top, rgba(15,25,18,.78), rgba(15,25,18,0));
+      color: #fff; font-size: 13.5px; line-height: 1.4;
+    }
+    .eg-shot__cap b { display: block; font-weight: 700; font-size: 15px; margin-bottom: 2px; }
+    .eg-shot__badge {
+      position: absolute; top: 14px; left: 14px; z-index: 4;
+      background: var(--eg-lime-bright); color: var(--eg-forest);
+      font-size: 12.5px; font-weight: 700;
+      padding: 6px 12px; border-radius: var(--eg-pill);
+      box-shadow: 0 4px 12px rgba(0,0,0,.18);
+    }
+
+    /* ============================================================
+       Cards (Cómo funciona / Beneficios / Socios)
+       ============================================================ */
+    .eg-grid { display: grid; gap: var(--eg-gap); }
+    .eg-grid--3 { grid-template-columns: repeat(3, 1fr); }
+    .eg-grid--4 { grid-template-columns: repeat(4, 1fr); }
+
+    .eg-card {
+      background: var(--eg-bg); border-radius: var(--eg-radius);
+      padding: 28px; border: 1px solid rgba(25,44,31,.08);
+      display: flex; flex-direction: column;
+    }
+    .eg-bg-off .eg-card { background: #fff; }
+    .eg-card__icon {
+      width: 52px; height: 52px; border-radius: 16px;
+      display: flex; align-items: center; justify-content: center; font-size: 26px;
+      background: var(--eg-lime); margin-bottom: 18px;
+    }
+    .eg-card h3 { margin-bottom: 10px; }
+    .eg-card p { margin: 0; color: var(--eg-forest-2); font-size: 15.5px; }
+
+    .eg-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 34px; }
+
+    /* ============================================================
+       Carrusel / Galería
+       ============================================================ */
+    .eg-gal__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 28px; }
+    .eg-gal__nav { display: flex; gap: 10px; }
+    .eg-arrow {
+      width: 48px; height: 48px; border-radius: 50%;
+      border: 1.5px solid var(--eg-forest); background: transparent; color: var(--eg-forest);
+      font-size: 20px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+      transition: background .2s ease, transform .12s ease;
+    }
+    .eg-arrow:hover { background: var(--eg-forest); color: var(--eg-bg); }
+    .eg-arrow:disabled { opacity: .35; cursor: not-allowed; }
+
+    .eg-carousel { position: relative; }
+    .eg-track {
+      display: flex; gap: var(--eg-gap);
+      overflow-x: auto; scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      padding-bottom: 8px;
+      scrollbar-width: thin;
+    }
+    @media (prefers-reduced-motion: reduce) { .eg-track { scroll-behavior: auto; } }
+    .eg-track::-webkit-scrollbar { height: 8px; }
+    .eg-track::-webkit-scrollbar-thumb { background: rgba(25,44,31,.25); border-radius: 999px; }
+    .eg-slide { flex: 0 0 44%; scroll-snap-align: start; }
+    .eg-slide .eg-shot { aspect-ratio: 4 / 3; box-shadow: 0 12px 30px rgba(25,44,31,.14); }
+
+    /* ============================================================
+       Timeline / Hitos (verde profundo)
+       ============================================================ */
+    .eg-timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--eg-gap); margin-top: 12px; }
+    .eg-tl {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--eg-radius); padding: 26px 24px;
+      position: relative;
+    }
+    .eg-tl__when { font-size: 13px; font-weight: 600; letter-spacing: .04em; color: var(--eg-lime-bright); text-transform: uppercase; }
+    .eg-tl h3 { color: var(--eg-bg); margin: 12px 0 10px; font-size: 20px; }
+    .eg-tl p { margin: 0; color: rgba(252,255,246,.72); font-size: 14.5px; }
+    .eg-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 12.5px; font-weight: 600; padding: 5px 12px; border-radius: var(--eg-pill);
+      margin-bottom: 16px;
+    }
+    .eg-badge::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+    .eg-badge--done { background: var(--eg-lime-bright); color: #14361f; }
+    .eg-badge--in-progress { background: rgba(191,241,121,.18); color: var(--eg-lime-bright); }
+    .eg-badge--next { background: rgba(255,255,255,.10); color: rgba(252,255,246,.78); }
+
+    /* ============================================================
+       Bloques de Impacto
+       ============================================================ */
+    .eg-blocklabel { margin: clamp(48px, 7vw, 76px) 0 26px; }
+    .eg-blocklabel:first-child { margin-top: 0; }
+
+    .eg-species { background: #fff; border-radius: var(--eg-radius); overflow: hidden; border: 1px solid rgba(25,44,31,.08); }
+    .eg-species .eg-shot { border-radius: 0; box-shadow: none; aspect-ratio: 1 / 1; }
+    .eg-species__body { padding: 18px 20px 22px; }
+    .eg-species__body h3 { font-size: 18px; margin-bottom: 6px; }
+    .eg-species__body p { margin: 0; font-size: 14px; color: var(--eg-forest-2); }
+    .eg-species--endemic { box-shadow: 0 0 0 2px var(--eg-lime-bright), 0 18px 40px rgba(25,44,31,.14); }
+    .eg-endemic-tag { display: inline-block; font-size: 12px; font-weight: 700; color: #2f6b1f; margin-bottom: 6px; }
+
+    /* Socios */
+    .eg-partners-note { margin: 0 0 26px; font-size: clamp(16px,1.6vw,19px); color: var(--eg-forest-2); }
+    .eg-partner { background: #fff; border-radius: var(--eg-radius); padding: 26px; border: 1px solid rgba(25,44,31,.08); }
+    .eg-partner__role { font-size: 13px; font-weight: 600; color: var(--eg-grey); letter-spacing: .02em; }
+    .eg-partner__name { font-size: 19px; font-weight: 700; margin-top: 10px; letter-spacing: -.01em; }
+
+    /* ============================================================
+       CTA final
+       ============================================================ */
+    .eg-ctabox {
+      background: var(--eg-forest); color: var(--eg-bg);
+      border-radius: var(--eg-radius); padding: clamp(36px, 6vw, 72px);
+      text-align: center;
+    }
+    .eg-ctabox h2 { color: var(--eg-bg); }
+    .eg-ctabox p { color: rgba(252,255,246,.82); max-width: 56ch; margin: 16px auto 0; font-size: clamp(16px,1.7vw,19px); }
+    .eg-ctabox .eg-btn { margin-top: 30px; }
+
+    /* ============================================================
+       Footer (legal / disclaimer §6)
+       ============================================================ */
+    .eg-footer { background: var(--eg-forest); color: rgba(252,255,246,.7); padding: 46px 0 40px; border-top: 1px solid rgba(255,255,255,.08); }
+    .eg-footer__grid { display: flex; flex-wrap: wrap; gap: 24px 40px; justify-content: space-between; align-items: flex-start; }
+    .eg-footer strong { color: var(--eg-bg); font-weight: 700; }
+    .eg-footer p { margin: 0 0 10px; font-size: 13.5px; max-width: 62ch; }
+    .eg-footer .eg-legal { font-size: 12.5px; color: rgba(252,255,246,.55); }
+
+    /* ============================================================
+       Responsive
+       ============================================================ */
+    @media (max-width: 900px) {
+      .eg-statband { grid-template-columns: repeat(2, 1fr); }
+      .eg-split { grid-template-columns: 1fr; }
+      .eg-split--rev .eg-split__media { order: 0; }
+      .eg-grid--3, .eg-grid--4 { grid-template-columns: repeat(2, 1fr); }
+      .eg-timeline { grid-template-columns: repeat(2, 1fr); }
+      .eg-slide { flex-basis: 80%; }
+    }
+    @media (max-width: 560px) {
+      .eg-statband { grid-template-columns: repeat(2, 1fr); }
+      .eg-grid--3, .eg-grid--4 { grid-template-columns: 1fr; }
+      .eg-timeline { grid-template-columns: 1fr; }
+      .eg-hero__cta .eg-btn { flex: 1 1 auto; }
+      .eg-topnav .eg-back { display: none; }
+    }
+
+    .eg-skip {
+      position: absolute; left: -9999px; top: 0; z-index: 100;
+      background: var(--eg-forest); color: #fff; padding: 10px 16px; border-radius: 0 0 10px 0;
+    }
+    .eg-skip:focus { left: 0; }
+  </style>
+</head>
+
+<body class="eg">
+  <a href="#contenido" class="eg-skip">Saltar al contenido</a>
+
+  <!-- Header mínimo (standalone). En la integración con el sitio, el header global lo reemplaza. -->
+  <header class="eg-topbar">
+    <div class="eg-topbar__inner">
+      <a class="eg-brand" href="https://forestblock.tech" aria-label="ForestBlock — inicio">
+        <span class="eg-dot" aria-hidden="true"></span> ForestBlock
+      </a>
+      <nav class="eg-topnav" aria-label="Acciones">
+        <a class="eg-back" href="https://forestblock.tech/proyectos">← Proyectos</a>
+        <a class="eg-btn eg-btn--primary" href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+
+    <!-- ============================ HERO ============================ -->
+    <section class="eg-hero eg-section" aria-labelledby="eg-hero-title">
+      <div class="eg-wrap">
+        <p class="eg-eyebrow">🐑 Proyecto de carbono · Patagonia Argentina</p>
+        <h1 class="eg-h1" id="eg-hero-title">Guardianes de la<br />Estepa Patagónica</h1>
+        <p class="eg-lead">
+          En la Meseta de Somuncurá, doce establecimientos ganaderos trabajan para que
+          producir y conservar dejen de ser opuestos. Ganadería ovina regenerativa, suelos
+          vivos y monitoreo satelital al servicio de la estepa y de quienes la habitan.
+        </p>
+        <div class="eg-hero__cta">
+          <a class="eg-btn eg-btn--primary" href="#contacto">Quiero saber más</a>
+          <a class="eg-btn eg-btn--ghost" href="#como-funciona">Cómo funciona</a>
+        </div>
+
+        <div class="eg-statband">
+          <div class="eg-stat"><div class="eg-stat__value">61.346 ha</div><div class="eg-stat__label">Superficie del proyecto</div></div>
+          <div class="eg-stat"><div class="eg-stat__value">12</div><div class="eg-stat__label">Establecimientos</div></div>
+          <div class="eg-stat"><div class="eg-stat__value">VM0042 + CCB</div><div class="eg-stat__label">Metodología y estándar</div></div>
+          <div class="eg-stat"><div class="eg-stat__value">Somuncurá</div><div class="eg-stat__label">Meseta · Río Negro</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ QUÉ ES ============================ -->
+    <section class="eg-section eg-bg-off" aria-labelledby="eg-quees-title">
+      <div class="eg-wrap">
+        <div class="eg-split">
+          <div>
+            <p class="eg-kicker">El proyecto</p>
+            <h2 class="eg-h2" id="eg-quees-title">Producción y conservación, en el mismo paisaje</h2>
+            <div class="eg-prose">
+              <p>
+                Guardianes de la Estepa Patagónica es un proyecto de carbono de suelo que reúne
+                a doce familias productoras de la Meseta de Somuncurá, en el sur de Río Negro.
+                Juntas administran <strong>61.346 hectáreas</strong> de estepa donde la cría de
+                ovinos es, desde hace generaciones, forma de vida y cultura.
+              </p>
+              <p>
+                El proyecto se desarrolla sobre tierra privada ubicada dentro del Área Natural
+                Protegida Meseta de Somuncurá, un ecosistema único de la Patagonia árida. La
+                propuesta no es dejar de producir, sino producir mejor: manejar el pastoreo para
+                que el coirón se recupere, el suelo retenga más agua y carbono, y la majada
+                conviva con la fauna nativa.
+              </p>
+              <p>
+                Durante <strong>junio de 2026</strong> el proyecto completó su etapa de
+                factibilidad ambiental, primer paso de un camino que continúa con el muestreo de
+                suelos, el registro ante Verra y la verificación de resultados.
+              </p>
+            </div>
+          </div>
+          <div class="eg-split__media">
+            <figure class="eg-shot eg-shot--tall">
+              <span class="eg-shot__ph" aria-hidden="true">
+                <span class="eg-shot__ph-icon">🏞️</span>
+                <span class="eg-shot__ph-text">Estepa de la Meseta de Somuncurá</span>
+              </span>
+              <img class="eg-shot__img" src="images/carrusel-01-estepa-nubes.jpg"
+                   alt="Amplia estepa de la Meseta de Somuncurá bajo un cielo de nubes patagónicas."
+                   loading="lazy" onerror="this.style.display='none'" />
+              <figcaption class="eg-shot__cap">La estepa de Somuncurá, territorio del proyecto.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ CÓMO FUNCIONA ============================ -->
+    <section class="eg-section eg-bg-lime" id="como-funciona" aria-labelledby="eg-como-title">
+      <div class="eg-wrap">
+        <p class="eg-kicker">Cómo funciona</p>
+        <h2 class="eg-h2" id="eg-como-title">Tres piezas que trabajan juntas</h2>
+        <p class="eg-lead" style="margin-bottom:8px;">
+          Un sistema simple en su lógica y riguroso en su medición: mejor manejo del pastizal,
+          carbono en el suelo y verificación independiente.
+        </p>
+
+        <div class="eg-grid eg-grid--3" style="margin-top:34px;">
+          <article class="eg-card">
+            <div class="eg-card__icon" aria-hidden="true">🌱</div>
+            <h3 class="eg-h3">Ganadería regenerativa</h3>
+            <p>Planificamos el pastoreo para dar descanso a los pastizales. El coirón y los
+              mallines se recuperan, el suelo gana cobertura y la estepa vuelve a funcionar
+              como un sistema vivo.</p>
+          </article>
+          <article class="eg-card">
+            <div class="eg-card__icon" aria-hidden="true">🟤</div>
+            <h3 class="eg-h3">Carbono en el suelo</h3>
+            <p>Un manejo regenerativo ayuda a que el suelo capture y retenga carbono orgánico.
+              Es el corazón de la metodología: suelos más sanos que almacenan carbono y
+              sostienen la producción.</p>
+          </article>
+          <article class="eg-card">
+            <div class="eg-card__icon" aria-hidden="true">🛰️</div>
+            <h3 class="eg-h3">Monitoreo satelital (MRV)</h3>
+            <p>ForestBlock aporta la tecnología de medición, reporte y verificación: imágenes
+              satelitales, muestreos de campo y modelos para seguir la evolución del proyecto
+              con transparencia.</p>
+          </article>
+        </div>
+
+        <div class="eg-tags" aria-label="Estándares y metodología">
+          <span class="eg-pill">Verra VCS</span>
+          <span class="eg-pill">VM0042 v2.2</span>
+          <span class="eg-pill">CCB v3.1</span>
+          <span class="eg-pill">AFOLU</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ GALERÍA ============================ -->
+    <section class="eg-section eg-bg-off" id="galeria" aria-labelledby="eg-gal-title">
+      <div class="eg-wrap">
+        <div class="eg-gal__head">
+          <div>
+            <p class="eg-kicker">Galería</p>
+            <h2 class="eg-h2" id="eg-gal-title" style="margin-bottom:0;">La estepa, de cerca</h2>
+          </div>
+          <div class="eg-gal__nav">
+            <button class="eg-arrow" id="eg-prev" type="button" aria-label="Imagen anterior">‹</button>
+            <button class="eg-arrow" id="eg-next" type="button" aria-label="Imagen siguiente">›</button>
+          </div>
+        </div>
+
+        <div class="eg-carousel">
+          <div class="eg-track" id="eg-track" tabindex="0" role="region"
+               aria-label="Galería de imágenes del proyecto (usá las flechas del teclado para desplazar)">
+            <!-- slides -->
+            <div class="eg-slide"><figure class="eg-shot">
+              <span class="eg-shot__ph" aria-hidden="true"><span class="eg-shot__ph-icon">☁️</span><span class="eg-shot__ph-text">Estepa bajo nubes</span></span>
+              <img class="eg-shot__img" src="images/carrusel-01-estepa-nubes.jpg" alt="La estepa de Somuncurá bajo un cielo de nubes patagónicas." loading="lazy" onerror="this.style.display='none'" />
+              <figcaption class="eg-shot__cap">La estepa de Somuncurá bajo un cielo de nubes patagónicas.</figcaption>
+            </figure></div>
+            <div class="eg-slide"><figure class="eg-shot">
+              <span class="eg-shot__ph" aria-hidden="true"><span class="eg-shot__ph-icon">🌙</span><span class="eg-shot__ph-text">Atardecer y luna</span></span>
+              <img class="eg-shot__img" src="images/carrusel-02-atardecer-meseta-luna.jpg" alt="Atardecer sobre la meseta con la luna asomando en el horizonte." loading="lazy" onerror="this.style.display='none'" />
+              <figcaption class="eg-shot__cap">Atardecer sobre la meseta, con la luna asomando.</figcaption>
+            </figure></div>
+            <div class="eg-slide"><figure class="eg-shot">
+              <span class="eg-shot__ph" aria-hidden="true"><span class="eg-shot__ph-icon">🌾</span><span class="eg-shot__ph-text">Monitoreo de coirón</span></span>
+              <img class="eg-shot__img" src="images/carrusel-03-monitoreo-coiron.jpg" alt="Monitoreo de la cobertura de coirón en el campo." loading="lazy" onerror="this.style.display='none'" />
+              <figcaption class="eg-shot__cap">Monitoreo de la cobertura de coirón en el campo.</figcaption>
+            </figure></div>
+            <div class="eg-slide"><figure class="eg-shot">
+              <span class="eg-shot__ph" aria-hidden="true"><span class="eg-shot__ph-icon">🧪</span><span class="eg-shot__ph-text">Muestreo de suelo</span></span>
+              <img class="eg-shot__img" src="images/carrusel-04-muestreo-suelo.jpg" alt="Muestreo de suelos para evaluar el carbono orgánico." loading="lazy" onerror="this.style.display='none'" />
+              <figcaption class="eg-shot__cap">Muestreo de suelos para evaluar el carbono orgánico.</figcaption>
+            </figure></div>
+            <div class="eg-slide"><figure class="eg-shot">
+              <span class="eg-shot__ph" aria-hidden="true"><span class="eg-shot__ph-icon">🐑</span><span class="eg-shot__ph-text">Majada merino</span></span>
+              <img class="eg-shot__img" src="images/carrusel-05-majada-merino.jpg" alt="Majada de ovinos merino pastoreando la estepa." loading="lazy" onerror="this.style.display='none'" />
+              <figcaption class="eg-shot__cap">Majada de ovinos merino pastoreando la estepa.</figcaption>
+            </figure></div>
+            <div class="eg-slide"><figure class="eg-shot">
+              <span class="eg-shot__ph" aria-hidden="true"><span class="eg-shot__ph-icon">💧</span><span class="eg-shot__ph-text">Mallín</span></span>
+              <img class="eg-shot__img" src="images/carrusel-06-mallin-agua.jpg" alt="Un mallín: oasis de agua y biodiversidad en la aridez de la estepa." loading="lazy" onerror="this.style.display='none'" />
+              <figcaption class="eg-shot__cap">Un mallín, oasis de agua y biodiversidad en la aridez.</figcaption>
+            </figure></div>
+            <div class="eg-slide"><figure class="eg-shot">
+              <span class="eg-shot__ph" aria-hidden="true"><span class="eg-shot__ph-icon">🌄</span><span class="eg-shot__ph-text">Atardecer rosado</span></span>
+              <img class="eg-shot__img" src="images/carrusel-07-atardecer-rosa-cerro.jpg" alt="Cielo rosado al atardecer sobre los cerros de la meseta." loading="lazy" onerror="this.style.display='none'" />
+              <figcaption class="eg-shot__cap">Cielo rosado al atardecer sobre los cerros.</figcaption>
+            </figure></div>
+            <div class="eg-slide"><figure class="eg-shot">
+              <span class="eg-shot__ph" aria-hidden="true"><span class="eg-shot__ph-icon">👥</span><span class="eg-shot__ph-text">Equipo de campo</span></span>
+              <img class="eg-shot__img" src="images/carrusel-08-equipo-campo.jpg" alt="Equipo de campo durante una jornada de trabajo en la estepa." loading="lazy" onerror="this.style.display='none'" />
+              <figcaption class="eg-shot__cap">Equipo de campo durante una jornada de trabajo.</figcaption>
+            </figure></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ HITOS ============================ -->
+    <section class="eg-section eg-bg-forest" aria-labelledby="eg-hitos-title">
+      <div class="eg-wrap">
+        <p class="eg-kicker">Hoja de ruta</p>
+        <h2 class="eg-h2" id="eg-hitos-title">Dónde estamos y hacia dónde vamos</h2>
+        <p class="eg-lead">Un proyecto en validación avanza por etapas. Este es el camino, con
+          total transparencia sobre lo hecho y lo que viene.</p>
+
+        <div class="eg-timeline">
+          <article class="eg-tl">
+            <span class="eg-badge eg-badge--done">Completado</span>
+            <div class="eg-tl__when">Jun 2026</div>
+            <h3>Factibilidad ambiental</h3>
+            <p>Completada la evaluación de factibilidad ambiental del proyecto, base para
+              avanzar hacia el registro.</p>
+          </article>
+          <article class="eg-tl">
+            <span class="eg-badge eg-badge--in-progress">En curso</span>
+            <div class="eg-tl__when">2026</div>
+            <h3>Muestreo de suelos (INTA)</h3>
+            <p>Diseño y ejecución del muestreo de suelos junto al INTA para caracterizar la
+              línea de base.</p>
+          </article>
+          <article class="eg-tl">
+            <span class="eg-badge eg-badge--next">Próximo</span>
+            <div class="eg-tl__when">Próximo</div>
+            <h3>Registro ante Verra</h3>
+            <p>Presentación del proyecto ante el estándar Verra (VCS) bajo la metodología
+              VM0042 y CCB.</p>
+          </article>
+          <article class="eg-tl">
+            <span class="eg-badge eg-badge--next">Próximo</span>
+            <div class="eg-tl__when">Próximo</div>
+            <h3>Verificación y primeros créditos</h3>
+            <p>Verificación independiente de los resultados y emisión de los primeros créditos
+              de carbono.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ IMPACTO ============================ -->
+    <section class="eg-section eg-bg-off" id="impacto" aria-labelledby="eg-impacto-title">
+      <div class="eg-wrap">
+        <p class="eg-kicker">Impacto · Estándar CCB</p>
+        <h2 class="eg-h2" id="eg-impacto-title">Beneficios para el clima, la comunidad y la biodiversidad</h2>
+
+        <!-- Beneficios -->
+        <div class="eg-grid eg-grid--4" style="margin-top:30px;">
+          <article class="eg-card">
+            <div class="eg-card__icon" aria-hidden="true">🌍</div>
+            <h3 class="eg-h3">Clima</h3>
+            <p>Suelos que capturan carbono y una estepa más resiliente frente a la sequía y al
+              cambio climático.</p>
+          </article>
+          <article class="eg-card">
+            <div class="eg-card__icon" aria-hidden="true">🤝</div>
+            <h3 class="eg-h3">Comunidad</h3>
+            <p>Ingresos complementarios y arraigo para las familias productoras que cuidan el
+              territorio.</p>
+          </article>
+          <article class="eg-card">
+            <div class="eg-card__icon" aria-hidden="true">🦎</div>
+            <h3 class="eg-h3">Biodiversidad</h3>
+            <p>Hábitat protegido para la fauna y la flora nativa de un Área Natural Protegida
+              única.</p>
+          </article>
+          <article class="eg-card">
+            <div class="eg-card__icon" aria-hidden="true">🔎</div>
+            <h3 class="eg-h3">Transparencia</h3>
+            <p>Medición, reporte y verificación bajo estándares internacionales, abiertos a la
+              auditoría.</p>
+          </article>
+        </div>
+
+        <!-- Fauna -->
+        <div class="eg-blocklabel">
+          <p class="eg-kicker">Fauna nativa</p>
+          <h2 class="eg-h2" style="margin-bottom:0;">Quiénes habitan la estepa</h2>
+        </div>
+        <div class="eg-grid eg-grid--4">
+          <article class="eg-species eg-species--endemic">
+            <figure class="eg-shot">
+              <span class="eg-shot__ph" aria-hidden="true"><span class="eg-shot__ph-icon">🐸</span><span class="eg-shot__ph-text">Ranita de Somuncurá</span></span>
+              <img class="eg-shot__img" src="images/fauna-ranita-somuncura.jpg" alt="Ranita endémica de la Meseta de Somuncurá." loading="lazy" onerror="this.style.display='none'" />
+              <span class="eg-shot__badge">★ Especie endémica</span>
+            </figure>
+            <div class="eg-species__body">
+              <span class="eg-endemic-tag">★ Especie endémica</span>
+              <h3>Ranita de Somuncurá</h3>
+              <p>Anfibio endémico que vive en las aguas de la meseta: símbolo de la singularidad
+                de Somuncurá.</p>
+            </div>
+          </article>
+          <article class="eg-species">
+            <figure class="eg-shot">
+              <span class="eg-shot__ph" aria-hidden="true"><span class="eg-shot__ph-icon">🦡</span><span class="eg-shot__ph-text">Piche patagónico</span></span>
+              <img class="eg-shot__img" src="images/fauna-piche.jpg" alt="Piche patagónico, pequeño armadillo de la estepa." loading="lazy" onerror="this.style.display='none'" />
+            </figure>
+            <div class="eg-species__body">
+              <h3>Piche patagónico</h3>
+              <p>Pequeño armadillo de la estepa, habitante característico del sur árido.</p>
+            </div>
+          </article>
+          <article class="eg-species">
+            <figure class="eg-shot">
+              <span class="eg-shot__ph" aria-hidden="true"><span class="eg-shot__ph-icon">🦆</span><span class="eg-shot__ph-text">Cauquén común</span></span>
+              <img class="eg-shot__img" src="images/fauna-cauquen.jpg" alt="Cauquén común recorriendo los mallines patagónicos." loading="lazy" onerror="this.style.display='none'" />
+            </figure>
+            <div class="eg-species__body">
+              <h3>Cauquén común</h3>
+              <p>Ave que recorre los mallines y pastizales de la Patagonia.</p>
+            </div>
+          </article>
+          <article class="eg-species">
+            <figure class="eg-shot">
+              <span class="eg-shot__ph" aria-hidden="true"><span class="eg-shot__ph-icon">🦗</span><span class="eg-shot__ph-text">Invertebrados</span></span>
+              <img class="eg-shot__img" src="images/fauna-insecto.jpg" alt="Invertebrados de la estepa, base del ecosistema." loading="lazy" onerror="this.style.display='none'" />
+            </figure>
+            <div class="eg-species__body">
+              <h3>Invertebrados de la estepa</h3>
+              <p>La base, muchas veces invisible, de un ecosistema vivo.</p>
+            </div>
+          </article>
+        </div>
+
+        <!-- Comunidad -->
+        <div class="eg-blocklabel">
+          <p class="eg-kicker">Comunidad</p>
+        </div>
+        <div class="eg-split eg-split--rev">
+          <div>
+            <h2 class="eg-h2">Territorio habitado</h2>
+            <div class="eg-prose">
+              <p>
+                El paraje Nazario Chico, con presencia del pueblo originario mapuche, forma parte
+                del corazón humano del proyecto. La estepa no es un paisaje vacío: es territorio
+                habitado, con saberes propios sobre el agua, los pastos y los animales.
+              </p>
+              <p>
+                Guardianes de la Estepa Patagónica se construye con esas comunidades, respetando
+                su voz y su forma de vivir el campo.
+              </p>
+            </div>
+          </div>
+          <div class="eg-split__media">
+            <figure class="eg-shot eg-shot--wide">
+              <span class="eg-shot__ph" aria-hidden="true"><span class="eg-shot__ph-icon">🏡</span><span class="eg-shot__ph-text">Paraje Nazario Chico</span></span>
+              <img class="eg-shot__img" src="images/comunidad-nazario-chico.jpg" alt="Paraje Nazario Chico, comunidad mapuche de la Meseta de Somuncurá." loading="lazy" onerror="this.style.display='none'" />
+              <figcaption class="eg-shot__cap">Paraje Nazario Chico, comunidad mapuche de la meseta.</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <!-- Socios -->
+        <div class="eg-blocklabel">
+          <p class="eg-kicker">Codesarrollo</p>
+          <h2 class="eg-h2" style="margin-bottom:0;">Quiénes hacen posible el proyecto</h2>
+        </div>
+        <p class="eg-partners-note">
+          Proyecto codesarrollado entre el ENTE y ForestBlock (Shale Synergy SA).
+        </p>
+        <div class="eg-grid eg-grid--3">
+          <article class="eg-partner">
+            <div class="eg-partner__role">Titular del proyecto</div>
+            <div class="eg-partner__name">ENTE — Ente de Desarrollo de la Región Sur</div>
+          </article>
+          <article class="eg-partner">
+            <div class="eg-partner__role">Developer registrado ante Verra · Tecnología MRV</div>
+            <div class="eg-partner__name">ForestBlock (marca de Shale Synergy SA)</div>
+          </article>
+          <article class="eg-partner">
+            <div class="eg-partner__role">Socio estratégico</div>
+            <div class="eg-partner__name">MJM Energía SA</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ CTA ============================ -->
+    <section class="eg-section eg-bg-lime" id="contacto" aria-labelledby="eg-cta-title">
+      <div class="eg-wrap">
+        <div class="eg-ctabox">
+          <h2 class="eg-h2" id="eg-cta-title">Sumate a los Guardianes de la Estepa</h2>
+          <p>¿Querés conocer más sobre el proyecto, sus avances o cómo participar?
+            Escribinos y conversemos.</p>
+          <a class="eg-btn eg-btn--onforest" href="https://forestblock.tech/contacto">Quiero saber más</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================ FOOTER ============================ -->
+  <footer class="eg-footer">
+    <div class="eg-wrap eg-footer__grid">
+      <div>
+        <p><strong>Guardianes de la Estepa Patagónica</strong></p>
+        <p>Proyecto de carbono de suelo en la Meseta de Somuncurá, Río Negro · 61.346 ha.</p>
+        <p class="eg-legal">Comunicación pública de un proyecto en etapa de validación.</p>
+      </div>
+      <div>
+        <p class="eg-legal">
+          ForestBlock es marca de <strong>Shale Synergy SA</strong>, developer registrado ante
+          Verra. <strong>MJM Energía SA</strong> es socio estratégico. Proyecto codesarrollado
+          entre el <strong>ENTE</strong> y ForestBlock (Shale Synergy SA).
+        </p>
+        <p class="eg-legal">© 2026 ForestBlock — Shale Synergy SA. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================ Carrusel JS ============================ -->
+  <script>
+    (function () {
+      var track = document.getElementById("eg-track");
+      var prev = document.getElementById("eg-prev");
+      var next = document.getElementById("eg-next");
+      if (!track) return;
+
+      function step() {
+        var slide = track.querySelector(".eg-slide");
+        var gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || 0) || 24;
+        return (slide ? slide.getBoundingClientRect().width : track.clientWidth * 0.6) + gap;
+      }
+      function scrollByDir(dir) { track.scrollBy({ left: dir * step(), behavior: "smooth" }); }
+
+      function updateArrows() {
+        var maxScroll = track.scrollWidth - track.clientWidth - 2;
+        prev.disabled = track.scrollLeft <= 2;
+        next.disabled = track.scrollLeft >= maxScroll;
+      }
+
+      prev.addEventListener("click", function () { scrollByDir(-1); });
+      next.addEventListener("click", function () { scrollByDir(1); });
+
+      // Teclado sobre la región del carrusel
+      track.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowRight") { e.preventDefault(); scrollByDir(1); }
+        else if (e.key === "ArrowLeft") { e.preventDefault(); scrollByDir(-1); }
+      });
+
+      track.addEventListener("scroll", function () {
+        window.requestAnimationFrame(updateArrows);
+      }, { passive: true });
+      window.addEventListener("resize", updateArrows);
+      updateArrows();
+    })();
+  </script>
+</body>
+</html>
