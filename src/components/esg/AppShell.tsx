@@ -13,6 +13,7 @@ const navItems = [
   { label: 'Environmental', href: '/esg/environmental', icon: '🌱' },
   { label: 'Social', href: '/esg/social', icon: '👥' },
   { label: 'Governance', href: '/esg/governance', icon: '⚖️' },
+  { label: 'Frameworks', href: '/esg/frameworks', icon: '🗂️' },
   { label: 'Evidence Vault', href: '/esg/evidence', icon: '📁' },
   { label: 'Reports', href: '/esg/reports', icon: '📄' },
 ];
