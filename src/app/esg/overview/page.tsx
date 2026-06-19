@@ -75,7 +75,7 @@ export default function OverviewPage() {
             type={pillar.type as 'environmental' | 'social' | 'governance'}
             totalIndicators={pillar.totalIndicators}
             completeness={pillar.completeness}
-            status={pillar.status}
+            status={pillar.status as 'on_track' | 'attention' | 'at_risk'}
             highlights={pillar.highlights}
           />
         ))}
