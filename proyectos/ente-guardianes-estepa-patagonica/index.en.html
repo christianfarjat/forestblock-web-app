@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guardians of the Patagonian Steppe | ForestBlock</title>
+  <meta name="description" content="Regenerative sheep grazing and soil carbon on the Somuncurá Plateau, Río Negro, Argentina. 61,346 ha, 12 ranches. Co-developed by ENTE and ForestBlock under Verra VM0042 + CCB." />
+
+  <!-- Open Graph / SEO -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Guardians of the Patagonian Steppe" />
+  <meta property="og:description" content="Production and conservation, together. A soil-carbon project on the Somuncurá Plateau." />
+  <meta property="og:url" content="https://forestblock.tech/proyectos/ente-guardianes-estepa-patagonica/index.en.html" />
+  <meta property="og:image" content="https://forestblock.tech/proyectos/ente-guardianes-estepa-patagonica/images/og.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://forestblock.tech/proyectos/ente-guardianes-estepa-patagonica/index.en.html" />
+  <link rel="alternate" hreflang="es" href="https://forestblock.tech/proyectos/ente-guardianes-estepa-patagonica/" />
+  <link rel="alternate" hreflang="en" href="https://forestblock.tech/proyectos/ente-guardianes-estepa-patagonica/index.en.html" />
+
+  <style>
+    /* ============================================================
+       Fonts — Aeonik (site typeface), Manrope/system fallback
+       ============================================================ */
+    @font-face {
+      font-family: "Aeonik";
+      src: url("./fonts/Aeonik-Light.otf") format("opentype");
+      font-weight: 300; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: "Aeonik";
+      src: url("./fonts/Aeonik-Regular.otf") format("opentype");
+      font-weight: 400; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: "Aeonik";
+      src: url("./fonts/Aeonik-Medium.otf") format("opentype");
+      font-weight: 500; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: "Aeonik";
+      src: url("./fonts/Aeonik-Bold.otf") format("opentype");
+      font-weight: 700; font-style: normal; font-display: swap;
+    }
+
+    /* ============================================================
+       Design tokens (from forestblock.tech, jun-2026)
+       ============================================================ */
+    :root {
+      --eg-bg:          #FCFFF6;
+      --eg-lime:        #DAFAA1;
+      --eg-lime-bright: #BFF179;
+      --eg-forest:      #192C1F;
+      --eg-forest-2:    #243B2C;
+      --eg-grey:        #76756E;
+
+      --eg-radius:      28px;
+      --eg-radius-sm:   18px;
+      --eg-pill:        999px;
+
+      --eg-font: "Aeonik", "Manrope", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+
+      --eg-maxw: 1180px;
+      --eg-gap:  clamp(16px, 2.5vw, 28px);
+    }
+
+    /* Base */
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+    body.eg {
+      margin: 0;
+      font-family: var(--eg-font);
+      color: var(--eg-forest);
+      background: var(--eg-bg);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+    .eg img { max-width: 100%; display: block; }
+    .eg a { color: inherit; }
+
+    .eg-wrap { width: 100%; max-width: var(--eg-maxw); margin: 0 auto; padding: 0 clamp(18px, 5vw, 40px); }
+    .eg-section { padding: clamp(56px, 9vw, 110px) 0; }
+
+    .eg-bg-off    { background: var(--eg-bg); }
+    .eg-bg-lime   { background: var(--eg-lime); }
+    .eg-bg-forest { background: var(--eg-forest); color: var(--eg-bg); }
+
+    .eg-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 14px; font-weight: 500; letter-spacing: .01em;
+      background: rgba(25,44,31,.08); color: var(--eg-forest-2);
+      padding: 8px 16px; border-radius: var(--eg-pill); margin: 0 0 22px;
+    }
+    .eg-bg-forest .eg-eyebrow { background: rgba(255,255,255,.12); color: var(--eg-bg); }
+
+    h1, h2, h3 { font-weight: 700; line-height: 1.08; margin: 0; letter-spacing: -.02em; }
+    .eg-h1 { font-size: clamp(38px, 6.5vw, 72px); }
+    .eg-h2 { font-size: clamp(28px, 4.2vw, 46px); margin-bottom: 18px; }
+    .eg-h3 { font-size: clamp(19px, 2vw, 23px); }
+
+    .eg-lead { font-size: clamp(17px, 1.8vw, 21px); color: var(--eg-forest-2); max-width: 60ch; }
+    .eg-bg-forest .eg-lead { color: rgba(252,255,246,.82); }
+    .eg-kicker { font-size: 14px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--eg-grey); margin: 0 0 14px; }
+    .eg-bg-forest .eg-kicker { color: var(--eg-lime-bright); }
+    .eg-muted { color: var(--eg-grey); }
+
+    /* Header */
+    .eg-topbar { position: sticky; top: 0; z-index: 50; background: var(--eg-lime-bright); border-bottom: 1px solid rgba(25,44,31,.10); }
+    .eg-topbar__inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px clamp(18px, 5vw, 40px); max-width: var(--eg-maxw); margin: 0 auto; }
+    .eg-brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; text-decoration: none; letter-spacing: -.01em; }
+    .eg-brand .eg-dot { width: 11px; height: 11px; border-radius: 50%; background: var(--eg-forest); display: inline-block; }
+    .eg-topnav { display: flex; align-items: center; gap: 10px; }
+    .eg-topnav a { text-decoration: none; font-size: 15px; font-weight: 500; padding: 8px 12px; border-radius: var(--eg-pill); }
+    .eg-topnav a.eg-back { color: var(--eg-forest-2); }
+    .eg-topnav a.eg-back:hover { background: rgba(25,44,31,.08); }
+
+    /* Buttons / pills */
+    .eg-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      font-family: inherit; font-size: 16px; font-weight: 600;
+      padding: 14px 26px; border-radius: var(--eg-pill);
+      text-decoration: none; cursor: pointer; border: 1.5px solid transparent;
+      transition: transform .12s ease, background .2s ease, box-shadow .2s ease; white-space: nowrap;
+    }
+    .eg-btn:hover { transform: translateY(-1px); }
+    .eg-btn:active { transform: translateY(0); }
+    .eg-btn--primary { background: var(--eg-forest); color: var(--eg-bg); }
+    .eg-btn--primary:hover { box-shadow: 0 10px 26px rgba(25,44,31,.22); }
+    .eg-btn--ghost { background: transparent; color: var(--eg-forest); border-color: var(--eg-forest); }
+    .eg-btn--ghost:hover { background: rgba(25,44,31,.06); }
+    .eg-btn--onforest { background: var(--eg-lime-bright); color: var(--eg-forest); }
+    .eg-btn--onforest:hover { box-shadow: 0 10px 26px rgba(0,0,0,.25); }
+
+    .eg-pill { display: inline-flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 500; padding: 8px 15px; border-radius: var(--eg-pill); background: var(--eg-bg); border: 1px solid rgba(25,44,31,.14); color: var(--eg-forest-2); }
+
+    .eg a:focus-visible, .eg button:focus-visible, .eg .eg-btn:focus-visible { outline: 3px solid var(--eg-forest); outline-offset: 3px; border-radius: 6px; }
+    .eg-bg-forest a:focus-visible, .eg-bg-forest button:focus-visible { outline-color: var(--eg-lime-bright); }
+
+    /* Hero */
+    .eg-hero { background: var(--eg-lime-bright); padding-top: clamp(48px, 7vw, 84px); }
+    .eg-hero__cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
+    .eg-hero .eg-lead { margin-top: 20px; }
+    .eg-statband { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: clamp(40px, 6vw, 64px); }
+    .eg-stat { background: var(--eg-bg); border-radius: var(--eg-radius); padding: 22px 22px 20px; border: 1px solid rgba(25,44,31,.06); }
+    .eg-stat__value { font-size: clamp(26px, 3.4vw, 38px); font-weight: 700; letter-spacing: -.03em; }
+    .eg-stat__label { font-size: 14px; color: var(--eg-grey); margin-top: 6px; }
+
+    /* Splits */
+    .eg-split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 64px); align-items: center; }
+    .eg-split--rev .eg-split__media { order: -1; }
+    .eg-prose p { margin: 0 0 16px; font-size: clamp(16px, 1.5vw, 18px); color: var(--eg-forest-2); }
+    .eg-prose p:last-child { margin-bottom: 0; }
+
+    /* Shot */
+    .eg-shot { position: relative; margin: 0; border-radius: var(--eg-radius); overflow: hidden; background: linear-gradient(135deg, var(--eg-forest) 0%, var(--eg-forest-2) 45%, #3c5a43 100%); aspect-ratio: 4 / 3; box-shadow: 0 18px 40px rgba(25,44,31,.16); }
+    .eg-shot--tall { aspect-ratio: 3 / 4; }
+    .eg-shot--wide { aspect-ratio: 16 / 10; }
+    .eg-shot__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2; }
+    .eg-shot__ph { position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; padding: 18px; color: rgba(252,255,246,.85); }
+    .eg-shot__ph-icon { font-size: 34px; opacity: .9; }
+    .eg-shot__ph-text { font-size: 13px; max-width: 24ch; line-height: 1.4; }
+    .eg-shot__cap { position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; padding: 30px 18px 14px; background: linear-gradient(to top, rgba(15,25,18,.78), rgba(15,25,18,0)); color: #fff; font-size: 13.5px; line-height: 1.4; }
+    .eg-shot__cap b { display: block; font-weight: 700; font-size: 15px; margin-bottom: 2px; }
+    .eg-shot__badge { position: absolute; top: 14px; left: 14px; z-index: 4; background: var(--eg-lime-bright); color: var(--eg-forest); font-size: 12.5px; font-weight: 700; padding: 6px 12px; border-radius: var(--eg-pill); box-shadow: 0 4px 12px rgba(0,0,0,.18); }
+
+    /* Cards */
+    .eg-grid { display: grid; gap: var(--eg-gap); }
+    .eg-grid--3 { grid-template-columns: repeat(3, 1fr); }
+    .eg-grid--4 { grid-template-columns: repeat(4, 1fr); }
+    .eg-card { background: var(--eg-bg); border-radius: var(--eg-radius); padding: 28px; border: 1px solid rgba(25,44,31,.08); display: flex; flex-direction: column; }
+    .eg-bg-off .eg-card { background: #fff; }
+    .eg-card__icon { width: 52px; height: 52px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 26px; background: var(--eg-lime); margin-bottom: 18px; }
+    .eg-card h3 { margin-bottom: 10px; }
+    .eg-card p { margin: 0; color: var(--eg-forest-2); font-size: 15.5px; }
+    .eg-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 34px; }
+
+    /* Carousel */
+    .eg-gal__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 28px; }
+    .eg-gal__nav { display: flex; gap: 10px; }
+    .eg-arrow { width: 48px; height: 48px; border-radius: 50%; border: 1.5px solid var(--eg-forest); background: transparent; color: var(--eg-forest); font-size: 20px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: background .2s ease, transform .12s ease; }
+    .eg-arrow:hover { background: var(--eg-forest); color: var(--eg-bg); }
+    .eg-arrow:disabled { opacity: .35; cursor: not-allowed; }
+    .eg-carousel { position: relative; }
+    .eg-track { display: flex; gap: var(--eg-gap); overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding-bottom: 8px; scrollbar-width: thin; }
+    @media (prefers-reduced-motion: reduce) { .eg-track { scroll-behavior: auto; } }
+    .eg-track::-webkit-scrollbar { height: 8px; }
+    .eg-track::-webkit-scrollbar-thumb { background: rgba(25,44,31,.25); border-radius: 999px; }
+    .eg-slide { flex: 0 0 44%; scroll-snap-align: start; }
+    .eg-slide .eg-shot { aspect-ratio: 4 / 3; box-shadow: 0 12px 30px rgba(25,44,31,.14); }
+
+    /* Timeline */
+    .eg-timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--eg-gap); margin-top: 12px; }
+    .eg-tl { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); border-radius: var(--eg-radius); padding: 26px 24px; position: relative; }
+    .eg-tl__when { font-size: 13px; font-weight: 600; letter-spacing: .04em; color: var(--eg-lime-bright); text-transform: uppercase; }
+    .eg-tl h3 { color: var(--eg-bg); margin: 12px 0 10px; font-size: 20px; }
+    .eg-tl p { margin: 0; color: rgba(252,255,246,.72); font-size: 14.5px; }
+    .eg-badge { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 600; padding: 5px 12px; border-radius: var(--eg-pill); margin-bottom: 16px; }
+    .eg-badge::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+    .eg-badge--done { background: var(--eg-lime-bright); color: #14361f; }
+    .eg-badge--in-progress { background: rgba(191,241,121,.18); color: var(--eg-lime-bright); }
+    .eg-badge--next { background: rgba(255,255,255,.10); color: rgba(252,255,246,.78); }
+
+    /* Impact blocks */
+    .eg-blocklabel { margin: clamp(48px, 7vw, 76px) 0 26px; }
+    .eg-blocklabel:first-child { margin-top: 0; }
+    .eg-species { background: #fff; border-radius: var(--eg-radius); overflow: hidden; border: 1px solid rgba(25,44,31,.08); }
+    .eg-species .eg-shot { border-radius: 0; box-shadow: none; aspect-ratio: 1 / 1; }
+    .eg-species__body { padding: 18px 20px 22px; }
+    .eg-species__body h3 { font-size: 18px; margin-bottom: 6px; }
+    .eg-species__body p { margin: 0; font-size: 14px; color: var(--eg-forest-2); }
+    .eg-species--endemic { box-shadow: 0 0 0 2px var(--eg-lime-bright), 0 18px 40px rgba(25,44,31,.14); }
+    .eg-endemic-tag { display: inline-block; font-size: 12px; font-weight: 700; color: #2f6b1f; margin-bottom: 6px; }
+
+    /* Partners */
+    .eg-partners-note { margin: 0 0 26px; font-size: clamp(16px,1.6vw,19px); color: var(--eg-forest-2); }
+    .eg-partner { background: #fff; border-radius: var(--eg-radius); padding: 26px; border: 1px solid rgba(25,44,31,.08); }
+    .eg-partner__role { font-size: 13px; font-weight: 600; color: var(--eg-grey); letter-spacing: .02em; }
+    .eg-partner__name { font-size: 19px; font-weight: 700; margin-top: 10px; letter-spacing: -.01em; }
+
+    /* CTA */
+    .eg-ctabox { background: var(--eg-forest); color: var(--eg-bg); border-radius: var(--eg-radius); padding: clamp(36px, 6vw, 72px); text-align: center; }
+    .eg-ctabox h2 { color: var(--eg-bg); }
+    .eg-ctabox p { color: rgba(252,255,246,.82); max-width: 56ch; margin: 16px auto 0; font-size: clamp(16px,1.7vw,19px); }
+    .eg-ctabox .eg-btn { margin-top: 30px; }
+
+    /* For companies & investors */
+    .eg-biz__head { max-width: 62ch; margin-bottom: clamp(30px, 5vw, 46px); }
+    .eg-bizcard { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); border-radius: var(--eg-radius); padding: 30px 28px; display: flex; flex-direction: column; }
+    .eg-bizcard__eyebrow { display: inline-flex; align-self: flex-start; font-size: 13px; font-weight: 600; letter-spacing: .01em; color: var(--eg-forest); background: var(--eg-lime-bright); padding: 6px 13px; border-radius: var(--eg-pill); margin-bottom: 18px; }
+    .eg-bizcard h3 { color: var(--eg-bg); font-size: clamp(20px, 2vw, 24px); margin-bottom: 12px; }
+    .eg-bizcard p { color: rgba(252,255,246,.74); font-size: 15px; margin: 0 0 24px; }
+    .eg-bizcard .eg-btn { align-self: flex-start; margin-top: auto; }
+    .eg-bizcard__trust { margin-top: 20px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.12); font-size: 12.5px; color: var(--eg-lime-bright); font-weight: 500; letter-spacing: .01em; line-height: 1.5; }
+
+    /* Footer */
+    .eg-footer { background: var(--eg-forest); color: rgba(252,255,246,.7); padding: 46px 0 40px; border-top: 1px solid rgba(255,255,255,.08); }
+    .eg-footer__grid { display: flex; flex-wrap: wrap; gap: 24px 40px; justify-content: space-between; align-items: flex-start; }
+    .eg-footer strong { color: var(--eg-bg); font-weight: 700; }
+    .eg-footer p { margin: 0 0 10px; font-size: 13.5px; max-width: 62ch; }
+    .eg-footer .eg-legal { font-size: 12.5px; color: rgba(252,255,246,.55); }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .eg-statband { grid-template-columns: repeat(2, 1fr); }
+      .eg-split { grid-template-columns: 1fr; }
+      .eg-split--rev .eg-split__media { order: 0; }
+      .eg-grid--3, .eg-grid--4 { grid-template-columns: repeat(2, 1fr); }
+      .eg-timeline { grid-template-columns: repeat(2, 1fr); }
+      .eg-slide { flex-basis: 80%; }
+    }
+    @media (max-width: 560px) {
+      .eg-statband { grid-template-columns: repeat(2, 1fr); }
+      .eg-grid--3, .eg-grid--4 { grid-template-columns: 1fr; }
+      .eg-timeline { grid-template-columns: 1fr; }
+      .eg-hero__cta .eg-btn { flex: 1 1 auto; }
+      .eg-topnav .eg-back { display: none; }
+    }
+
+    .eg-skip { position: absolute; left: -9999px; top: 0; z-index: 100; background: var(--eg-forest); color: #fff; padding: 10px 16px; border-radius: 0 0 10px 0; }
+    .eg-skip:focus { left: 0; }
+  </style>
+</head>
+
+<body class="eg">
+  <a href="#content" class="eg-skip">Skip to content</a>
+
+  <header class="eg-topbar">
+    <div class="eg-topbar__inner">
+      <a class="eg-brand" href="https://forestblock.tech" aria-label="ForestBlock — home">
+        <span class="eg-dot" aria-hidden="true"></span> ForestBlock
+      </a>
+      <nav class="eg-topnav" aria-label="Actions">
+        <a class="eg-back" href="https://forestblock.tech/projects">← Projects</a>
+        <a class="eg-back" href="index.html" hreflang="es" lang="es">ES</a>
+        <a class="eg-btn eg-btn--primary" href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content">
+
+    <!-- ============================ HERO ============================ -->
+    <section class="eg-hero eg-section" aria-labelledby="eg-hero-title">
+      <div class="eg-wrap">
+        <p class="eg-eyebrow">🐑 Carbon project · Patagonia, Argentina</p>
+        <h1 class="eg-h1" id="eg-hero-title">Guardians of the<br />Patagonian Steppe</h1>
+        <p class="eg-lead">
+          On the Somuncurá Plateau, twelve ranches are working to make production and
+          conservation stop being opposites. Regenerative sheep grazing, living soils and
+          satellite monitoring — for the steppe and for the people who call it home.
+        </p>
+        <div class="eg-hero__cta">
+          <a class="eg-btn eg-btn--primary" href="#contact">Learn more</a>
+          <a class="eg-btn eg-btn--ghost" href="#how-it-works">How it works</a>
+        </div>
+
+        <div class="eg-statband">
+          <div class="eg-stat"><div class="eg-stat__value">61,346 ha</div><div class="eg-stat__label">Project area</div></div>
+          <div class="eg-stat"><div class="eg-stat__value">12</div><div class="eg-stat__label">Ranches</div></div>
+          <div class="eg-stat"><div class="eg-stat__value">VM0042 + CCB</div><div class="eg-stat__label">Methodology &amp; standard</div></div>
+          <div class="eg-stat"><div class="eg-stat__value">Somuncurá</div><div class="eg-stat__label">Plateau · Río Negro</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ WHAT IT IS ============================ -->
+    <section class="eg-section eg-bg-off" aria-labelledby="eg-about-title">
+      <div class="eg-wrap">
+        <div class="eg-split">
+          <div>
+            <p class="eg-kicker">The project</p>
+            <h2 class="eg-h2" id="eg-about-title">Production and conservation, in the same landscape</h2>
+            <div class="eg-prose">
+              <p>
+                Guardians of the Patagonian Steppe is a soil-carbon project that brings together
+                twelve ranching families from the Somuncurá Plateau, in southern Río Negro,
+                Argentina. Together they steward <strong>61,346 hectares</strong> of steppe where
+                sheep raising has been, for generations, both a livelihood and a culture.
+              </p>
+              <p>
+                The project takes place on private land located within the Somuncurá Plateau
+                Protected Natural Area, a unique arid-Patagonia ecosystem. The goal is not to stop
+                producing, but to produce better: managing grazing so the native bunchgrass
+                recovers, the soil holds more water and carbon, and the flock coexists with native
+                wildlife.
+              </p>
+              <p>
+                In <strong>June 2026</strong> the project completed its environmental feasibility
+                stage — the first step on a path that continues with soil sampling, registration
+                with Verra and verification of results.
+              </p>
+            </div>
+          </div>
+          <div class="eg-split__media">
+            <figure class="eg-shot eg-shot--tall">
+              <span class="eg-shot__ph" aria-hidden="true">
+                <span class="eg-shot__ph-icon">🏞️</span>
+                <span class="eg-shot__ph-text">Steppe of the Somuncurá Plateau</span>
+              </span>
+              <img class="eg-shot__img" src="images/carrusel-01-estepa-nubes.jpg"
+                   alt="Wide steppe of the Somuncurá Plateau under a sky of Patagonian clouds."
+                   loading="lazy" onerror="this.style.display='none'" />
+              <figcaption class="eg-shot__cap">The Somuncurá steppe, the project's territory.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ HOW IT WORKS ============================ -->
+    <section class="eg-section eg-bg-lime" id="how-it-works" aria-labelledby="eg-how-title">
+      <div class="eg-wrap">
+        <p class="eg-kicker">How it works</p>
+        <h2 class="eg-h2" id="eg-how-title">Three pieces working together</h2>
+        <p class="eg-lead" style="margin-bottom:8px;">
+          A system that is simple in its logic and rigorous in its measurement: better rangeland
+          management, carbon in the soil, and independent verification.
+        </p>
+
+        <div class="eg-grid eg-grid--3" style="margin-top:34px;">
+          <article class="eg-card">
+            <div class="eg-card__icon" aria-hidden="true">🌱</div>
+            <h3 class="eg-h3">Regenerative grazing</h3>
+            <p>We plan grazing to give the rangelands rest. The native bunchgrass and the wet
+              meadows recover, the soil regains cover, and the steppe works again as a living
+              system.</p>
+          </article>
+          <article class="eg-card">
+            <div class="eg-card__icon" aria-hidden="true">🟤</div>
+            <h3 class="eg-h3">Carbon in the soil</h3>
+            <p>Regenerative management helps the soil capture and retain organic carbon. It is the
+              heart of the methodology: healthier soils that store carbon and sustain production.</p>
+          </article>
+          <article class="eg-card">
+            <div class="eg-card__icon" aria-hidden="true">🛰️</div>
+            <h3 class="eg-h3">Satellite monitoring (MRV)</h3>
+            <p>ForestBlock provides the measurement, reporting and verification technology:
+              satellite imagery, field sampling and models to track the project's evolution
+              with transparency.</p>
+          </article>
+        </div>
+
+        <div class="eg-tags" aria-label="Standards and methodology">
+          <span class="eg-pill">Verra VCS</span>
+          <span class="eg-pill">VM0042 v2.2</span>
+          <span class="eg-pill">CCB v3.1</span>
+          <span class="eg-pill">AFOLU</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ GALLERY ============================ -->
+    <section class="eg-section eg-bg-off" id="gallery" aria-labelledby="eg-gal-title">
+      <div class="eg-wrap">
+        <div class="eg-gal__head">
+          <div>
+            <p class="eg-kicker">Gallery</p>
+            <h2 class="eg-h2" id="eg-gal-title" style="margin-bottom:0;">The steppe, up close</h2>
+          </div>
+          <div class="eg-gal__nav">
+            <button class="eg-arrow" id="eg-prev" type="button" aria-label="Previous image">‹</button>
+            <button class="eg-arrow" id="eg-next" type="button" aria-label="Next image">›</button>
+          </div>
+        </div>
+
+        <div class="eg-carousel">
+          <div class="eg-track" id="eg-track" tabindex="0" role="region"
+               aria-label="Project image gallery (use the arrow keys to scroll)">
+            <div class="eg-slide"><figure class="eg-shot">
+              <span class="eg-shot__ph" aria-hidden="true"><span class="eg-shot__ph-icon">☁️</span><span class="eg-shot__ph-text">Steppe under clouds</span></span>
+              <img class="eg-shot__img" src="images/carrusel-01-estepa-nubes.jpg" alt="The Somuncurá steppe under a sky of Patagonian clouds." loading="lazy" onerror="this.style.display='none'" />
+              <figcaption class="eg-shot__cap">The Somuncurá steppe under a sky of Patagonian clouds.</figcaption>
+            </figure></div>
+            <div class="eg-slide"><figure class="eg-shot">
+              <span class="eg-shot__ph" aria-hidden="true"><span class="eg-shot__ph-icon">🌙</span><span class="eg-shot__ph-text">Sunset and moon</span></span>
+              <img class="eg-shot__img" src="images/carrusel-02-atardecer-meseta-luna.jpg" alt="Sunset over the plateau with the moon rising on the horizon." loading="lazy" onerror="this.style.display='none'" />
+              <figcaption class="eg-shot__cap">Sunset over the plateau, with the moon rising.</figcaption>
+            </figure></div>
+            <div class="eg-slide"><figure class="eg-shot">
+              <span class="eg-shot__ph" aria-hidden="true"><span class="eg-shot__ph-icon">🌾</span><span class="eg-shot__ph-text">Bunchgrass monitoring</span></span>
+              <img class="eg-shot__img" src="images/carrusel-03-monitoreo-coiron.jpg" alt="Monitoring native bunchgrass cover in the field." loading="lazy" onerror="this.style.display='none'" />
+              <figcaption class="eg-shot__cap">Monitoring native bunchgrass cover in the field.</figcaption>
+            </figure></div>
+            <div class="eg-slide"><figure class="eg-shot">
+              <span class="eg-shot__ph" aria-hidden="true"><span class="eg-shot__ph-icon">🧪</span><span class="eg-shot__ph-text">Soil sampling</span></span>
+              <img class="eg-shot__img" src="images/carrusel-04-muestreo-suelo.jpg" alt="Soil sampling to assess organic carbon." loading="lazy" onerror="this.style.display='none'" />
+              <figcaption class="eg-shot__cap">Soil sampling to assess organic carbon.</figcaption>
+            </figure></div>
+            <div class="eg-slide"><figure class="eg-shot">
+              <span class="eg-shot__ph" aria-hidden="true"><span class="eg-shot__ph-icon">🐑</span><span class="eg-shot__ph-text">Merino flock</span></span>
+              <img class="eg-shot__img" src="images/carrusel-05-majada-merino.jpg" alt="A flock of Merino sheep grazing the steppe." loading="lazy" onerror="this.style.display='none'" />
+              <figcaption class="eg-shot__cap">A flock of Merino sheep grazing the steppe.</figcaption>
+            </figure></div>
+            <div class="eg-slide"><figure class="eg-shot">
+              <span class="eg-shot__ph" aria-hidden="true"><span class="eg-shot__ph-icon">💧</span><span class="eg-shot__ph-text">Wet meadow</span></span>
+              <img class="eg-shot__img" src="images/carrusel-06-mallin-agua.jpg" alt="A 'mallín' wet meadow: an oasis of water and biodiversity amid the aridity." loading="lazy" onerror="this.style.display='none'" />
+              <figcaption class="eg-shot__cap">A wet meadow, an oasis of water and biodiversity amid the aridity.</figcaption>
+            </figure></div>
+            <div class="eg-slide"><figure class="eg-shot">
+              <span class="eg-shot__ph" aria-hidden="true"><span class="eg-shot__ph-icon">🌄</span><span class="eg-shot__ph-text">Pink sunset</span></span>
+              <img class="eg-shot__img" src="images/carrusel-07-atardecer-rosa-cerro.jpg" alt="Pink sky at sunset over the plateau hills." loading="lazy" onerror="this.style.display='none'" />
+              <figcaption class="eg-shot__cap">Pink sky at sunset over the hills.</figcaption>
+            </figure></div>
+            <div class="eg-slide"><figure class="eg-shot">
+              <span class="eg-shot__ph" aria-hidden="true"><span class="eg-shot__ph-icon">👥</span><span class="eg-shot__ph-text">Field team</span></span>
+              <img class="eg-shot__img" src="images/carrusel-08-equipo-campo.jpg" alt="The field team during a working day on the steppe." loading="lazy" onerror="this.style.display='none'" />
+              <figcaption class="eg-shot__cap">The field team during a working day.</figcaption>
+            </figure></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ MILESTONES ============================ -->
+    <section class="eg-section eg-bg-forest" aria-labelledby="eg-roadmap-title">
+      <div class="eg-wrap">
+        <p class="eg-kicker">Roadmap</p>
+        <h2 class="eg-h2" id="eg-roadmap-title">Where we are and where we're heading</h2>
+        <p class="eg-lead">A project under validation advances in stages. This is the path, with
+          full transparency about what's done and what's next.</p>
+
+        <div class="eg-timeline">
+          <article class="eg-tl">
+            <span class="eg-badge eg-badge--done">Completed</span>
+            <div class="eg-tl__when">Jun 2026</div>
+            <h3>Environmental feasibility</h3>
+            <p>The project's environmental feasibility assessment is complete — the basis for
+              moving toward registration.</p>
+          </article>
+          <article class="eg-tl">
+            <span class="eg-badge eg-badge--in-progress">In progress</span>
+            <div class="eg-tl__when">2026</div>
+            <h3>Soil sampling (INTA)</h3>
+            <p>Design and execution of soil sampling together with INTA to characterize the
+              baseline.</p>
+          </article>
+          <article class="eg-tl">
+            <span class="eg-badge eg-badge--next">Next</span>
+            <div class="eg-tl__when">Next</div>
+            <h3>Registration with Verra</h3>
+            <p>Submission of the project to the Verra (VCS) standard under the VM0042
+              methodology and CCB.</p>
+          </article>
+          <article class="eg-tl">
+            <span class="eg-badge eg-badge--next">Next</span>
+            <div class="eg-tl__when">Next</div>
+            <h3>Verification and first credits</h3>
+            <p>Independent verification of results and issuance of the first carbon credits.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ IMPACT ============================ -->
+    <section class="eg-section eg-bg-off" id="impact" aria-labelledby="eg-impact-title">
+      <div class="eg-wrap">
+        <p class="eg-kicker">Impact · CCB Standard</p>
+        <h2 class="eg-h2" id="eg-impact-title">Benefits for climate, community and biodiversity</h2>
+
+        <!-- Benefits -->
+        <div class="eg-grid eg-grid--4" style="margin-top:30px;">
+          <article class="eg-card">
+            <div class="eg-card__icon" aria-hidden="true">🌍</div>
+            <h3 class="eg-h3">Climate</h3>
+            <p>Soils that capture carbon and a steppe that is more resilient to drought and
+              climate change.</p>
+          </article>
+          <article class="eg-card">
+            <div class="eg-card__icon" aria-hidden="true">🤝</div>
+            <h3 class="eg-h3">Community</h3>
+            <p>Complementary income and rootedness for the ranching families who care for the
+              territory.</p>
+          </article>
+          <article class="eg-card">
+            <div class="eg-card__icon" aria-hidden="true">🦎</div>
+            <h3 class="eg-h3">Biodiversity</h3>
+            <p>Protected habitat for the native wildlife and flora of a unique Protected Natural
+              Area.</p>
+          </article>
+          <article class="eg-card">
+            <div class="eg-card__icon" aria-hidden="true">🔎</div>
+            <h3 class="eg-h3">Transparency</h3>
+            <p>Measurement, reporting and verification under international standards, open to
+              audit.</p>
+          </article>
+        </div>
+
+        <!-- Wildlife -->
+        <div class="eg-blocklabel">
+          <p class="eg-kicker">Native wildlife</p>
+          <h2 class="eg-h2" style="margin-bottom:0;">Who lives on the steppe</h2>
+        </div>
+        <div class="eg-grid eg-grid--4">
+          <article class="eg-species eg-species--endemic">
+            <figure class="eg-shot">
+              <span class="eg-shot__ph" aria-hidden="true"><span class="eg-shot__ph-icon">🐸</span><span class="eg-shot__ph-text">Somuncurá frog</span></span>
+              <img class="eg-shot__img" src="images/fauna-ranita-somuncura.jpg" alt="Endemic frog of the Somuncurá Plateau." loading="lazy" onerror="this.style.display='none'" />
+              <span class="eg-shot__badge">★ Endemic species</span>
+            </figure>
+            <div class="eg-species__body">
+              <span class="eg-endemic-tag">★ Endemic species</span>
+              <h3>Somuncurá frog</h3>
+              <p>An endemic amphibian that lives in the plateau's waters: a symbol of Somuncurá's
+                uniqueness.</p>
+            </div>
+          </article>
+          <article class="eg-species">
+            <figure class="eg-shot">
+              <span class="eg-shot__ph" aria-hidden="true"><span class="eg-shot__ph-icon">🦡</span><span class="eg-shot__ph-text">Patagonian pichi</span></span>
+              <img class="eg-shot__img" src="images/fauna-piche.jpg" alt="Patagonian pichi, a small armadillo of the steppe." loading="lazy" onerror="this.style.display='none'" />
+            </figure>
+            <div class="eg-species__body">
+              <h3>Patagonian pichi</h3>
+              <p>A small armadillo of the steppe, a characteristic inhabitant of the arid south.</p>
+            </div>
+          </article>
+          <article class="eg-species">
+            <figure class="eg-shot">
+              <span class="eg-shot__ph" aria-hidden="true"><span class="eg-shot__ph-icon">🦆</span><span class="eg-shot__ph-text">Upland goose</span></span>
+              <img class="eg-shot__img" src="images/fauna-cauquen.jpg" alt="Upland goose crossing the Patagonian wet meadows." loading="lazy" onerror="this.style.display='none'" />
+            </figure>
+            <div class="eg-species__body">
+              <h3>Upland goose</h3>
+              <p>A bird that ranges across the wet meadows and grasslands of Patagonia.</p>
+            </div>
+          </article>
+          <article class="eg-species">
+            <figure class="eg-shot">
+              <span class="eg-shot__ph" aria-hidden="true"><span class="eg-shot__ph-icon">🦗</span><span class="eg-shot__ph-text">Invertebrates</span></span>
+              <img class="eg-shot__img" src="images/fauna-insecto.jpg" alt="Invertebrates of the steppe, the base of the ecosystem." loading="lazy" onerror="this.style.display='none'" />
+            </figure>
+            <div class="eg-species__body">
+              <h3>Steppe invertebrates</h3>
+              <p>The often-invisible base of a living ecosystem.</p>
+            </div>
+          </article>
+        </div>
+
+        <!-- Community -->
+        <div class="eg-blocklabel">
+          <p class="eg-kicker">Community</p>
+        </div>
+        <div class="eg-split eg-split--rev">
+          <div>
+            <h2 class="eg-h2">Inhabited territory</h2>
+            <div class="eg-prose">
+              <p>
+                The Nazario Chico settlement, home to the Mapuche Indigenous people, is part of
+                the human heart of the project. The steppe is not an empty landscape: it is
+                inhabited territory, with its own knowledge of water, grasses and animals.
+              </p>
+              <p>
+                Guardians of the Patagonian Steppe is built together with those communities,
+                respecting their voice and their way of living the land.
+              </p>
+            </div>
+          </div>
+          <div class="eg-split__media">
+            <figure class="eg-shot eg-shot--wide">
+              <span class="eg-shot__ph" aria-hidden="true"><span class="eg-shot__ph-icon">🏡</span><span class="eg-shot__ph-text">Nazario Chico settlement</span></span>
+              <img class="eg-shot__img" src="images/comunidad-nazario-chico.jpg" alt="Nazario Chico settlement, a Mapuche community of the Somuncurá Plateau." loading="lazy" onerror="this.style.display='none'" />
+              <figcaption class="eg-shot__cap">Nazario Chico, a Mapuche community of the plateau.</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <!-- Partners -->
+        <div class="eg-blocklabel">
+          <p class="eg-kicker">Co-development</p>
+          <h2 class="eg-h2" style="margin-bottom:0;">Who makes the project possible</h2>
+        </div>
+        <p class="eg-partners-note">
+          A project co-developed by ENTE and ForestBlock (Shale Synergy SA).
+        </p>
+        <div class="eg-grid eg-grid--3">
+          <article class="eg-partner">
+            <div class="eg-partner__role">Project proponent</div>
+            <div class="eg-partner__name">ENTE — Ente de Desarrollo de la Región Sur</div>
+          </article>
+          <article class="eg-partner">
+            <div class="eg-partner__role">Developer registered with Verra · MRV technology</div>
+            <div class="eg-partner__name">ForestBlock (a brand of Shale Synergy SA)</div>
+          </article>
+          <article class="eg-partner">
+            <div class="eg-partner__role">Strategic partner</div>
+            <div class="eg-partner__name">MJM Energía SA</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ CTA ============================ -->
+    <section class="eg-section eg-bg-lime" id="contact" aria-labelledby="eg-cta-title">
+      <div class="eg-wrap">
+        <div class="eg-ctabox">
+          <h2 class="eg-h2" id="eg-cta-title">Join the Guardians of the Steppe</h2>
+          <p>Want to learn more about the project, its progress or how to get involved?
+            Write to us and let's talk.</p>
+          <a class="eg-btn eg-btn--onforest" href="mailto:comercial@forestblock.tech?subject=Guardians%20of%20the%20Steppe%20-%20General%20enquiry">Learn more</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FOR COMPANIES & INVESTORS ==================== -->
+    <section class="eg-section eg-bg-forest" id="business" aria-labelledby="eg-biz-title">
+      <div class="eg-wrap">
+        <div class="eg-biz__head">
+          <p class="eg-kicker">For companies &amp; investors</p>
+          <h2 class="eg-h2" id="eg-biz-title" style="margin-bottom:0;">Three ways to be part of the project</h2>
+        </div>
+
+        <div class="eg-grid eg-grid--3">
+          <!-- 1 · Project financiers -->
+          <article class="eg-bizcard">
+            <span class="eg-bizcard__eyebrow">For impact investors and financiers</span>
+            <h3>Invest in restoring the Patagonian steppe</h3>
+            <p>We're looking for financial partners to scale a soil-carbon project with approved
+              provincial environmental feasibility, Verra VM0042 + CCB methodology and independent
+              satellite monitoring. Finance early-stage development and become part of one of
+              Patagonia's first verified regenerative-grazing projects.</p>
+            <a class="eg-btn eg-btn--onforest" href="mailto:comercial@forestblock.tech?subject=Guardians%20of%20the%20Steppe%20-%20Investment">Let's talk investment</a>
+            <div class="eg-bizcard__trust">Validation stage · Verra VCS + CCB · 61,346 ha · MRV by ForestBlock</div>
+          </article>
+
+          <!-- 2 · Credit buyers -->
+          <article class="eg-bizcard">
+            <span class="eg-bizcard__eyebrow">For companies with climate targets</span>
+            <h3>Secure carbon credits with integrity, from the source</h3>
+            <p>Patagonian soil-carbon credits, with social and biodiversity co-benefits (CCB
+              Standard), satellite traceability and independent verification. Connect your climate
+              strategy to a real, measurable project with a story — that of the steppe and its
+              people.</p>
+            <a class="eg-btn eg-btn--onforest" href="mailto:comercial@forestblock.tech?subject=Guardians%20of%20the%20Steppe%20-%20Carbon%20credits">I want to buy credits</a>
+            <div class="eg-bizcard__trust">1 VCU = 1 tCO₂e · Verra VCS + CCB · independent verification</div>
+          </article>
+
+          <!-- 3 · Forward / ERPA offtake -->
+          <article class="eg-bizcard">
+            <span class="eg-bizcard__eyebrow">For strategic buyers</span>
+            <h3>Secure your volume with an advance purchase agreement</h3>
+            <p>Get in early with an offtake contract (forward / ERPA): you secure priority access
+              to the project's future credits and support its development from the ground up.
+              Ideal for companies planning their climate action over several years.</p>
+            <a class="eg-btn eg-btn--onforest" href="mailto:comercial@forestblock.tech?subject=Guardians%20of%20the%20Steppe%20-%20Offtake%20%28forward%2FERPA%29">Let's discuss an offtake</a>
+            <div class="eg-bizcard__trust">Forward / ERPA · delivery subject to Verra verification</div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================ FOOTER ============================ -->
+  <footer class="eg-footer">
+    <div class="eg-wrap eg-footer__grid">
+      <div>
+        <p><strong>Guardians of the Patagonian Steppe</strong></p>
+        <p>A soil-carbon project on the Somuncurá Plateau, Río Negro, Argentina · 61,346 ha.</p>
+        <p class="eg-legal">Public communication of a project at the validation stage.</p>
+      </div>
+      <div>
+        <p class="eg-legal">
+          ForestBlock is a brand of <strong>Shale Synergy SA</strong>, a developer registered with
+          Verra. <strong>MJM Energía SA</strong> is a strategic partner. A project co-developed by
+          <strong>ENTE</strong> and ForestBlock (Shale Synergy SA).
+        </p>
+        <p class="eg-legal">© 2026 ForestBlock — Shale Synergy SA. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================ Carousel JS ============================ -->
+  <script>
+    (function () {
+      var track = document.getElementById("eg-track");
+      var prev = document.getElementById("eg-prev");
+      var next = document.getElementById("eg-next");
+      if (!track) return;
+
+      function step() {
+        var slide = track.querySelector(".eg-slide");
+        var gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || 0) || 24;
+        return (slide ? slide.getBoundingClientRect().width : track.clientWidth * 0.6) + gap;
+      }
+      function scrollByDir(dir) { track.scrollBy({ left: dir * step(), behavior: "smooth" }); }
+
+      function updateArrows() {
+        var maxScroll = track.scrollWidth - track.clientWidth - 2;
+        prev.disabled = track.scrollLeft <= 2;
+        next.disabled = track.scrollLeft >= maxScroll;
+      }
+
+      prev.addEventListener("click", function () { scrollByDir(-1); });
+      next.addEventListener("click", function () { scrollByDir(1); });
+
+      track.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowRight") { e.preventDefault(); scrollByDir(1); }
+        else if (e.key === "ArrowLeft") { e.preventDefault(); scrollByDir(-1); }
+      });
+
+      track.addEventListener("scroll", function () { window.requestAnimationFrame(updateArrows); }, { passive: true });
+      window.addEventListener("resize", updateArrows);
+      updateArrows();
+    })();
+  </script>
+</body>
+</html>
