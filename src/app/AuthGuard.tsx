@@ -20,16 +20,16 @@ const isAllowed = (path: string, rules: (string | RegExp)[]) =>
   rules.some((r) => (typeof r === 'string' ? path.startsWith(r) : r.test(path)));
 
 export default function AuthGuard({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated } = useAuth(); // ✅ sin 'loading'
+  const { isAuthenticated } = useAuth();
   const pathname = usePathname() || '/';
   const router = useRouter();
 
-  // 🔓 En desarrollo no bloqueamos nada
-  if (process.env.NEXT_PUBLIC_ENVIRONMENT === 'development') {
-    return <>{children}</>;
-  }
-
   useEffect(() => {
+    // En desarrollo no bloqueamos nada
+    if (process.env.NEXT_PUBLIC_ENVIRONMENT === 'development') {
+      return;
+    }
+
     // Permitidas sin auth
     if (isAllowed(pathname, PUBLIC)) return;
 

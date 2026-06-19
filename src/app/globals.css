@@ -2,6 +2,56 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Evergrid-derived tokens — light mode */
+:root {
+  --c-bg: 245 247 244;
+  --c-surface: 255 255 255;
+  --c-surface-alt: 238 243 238;
+  --c-surface-strong: 226 235 227;
+  --c-text: 18 32 24;
+  --c-text-muted: 83 98 90;
+  --c-text-faint: 123 138 130;
+  --c-border: 216 225 218;
+  --c-divider: 228 235 229;
+  --c-primary: 30 107 76;
+  --c-primary-hover: 23 86 61;
+  --c-primary-soft: 221 238 229;
+  --c-secondary: 14 78 90;
+  --c-secondary-soft: 217 234 238;
+  --c-accent: 184 137 45;
+  --c-accent-soft: 243 232 204;
+  --c-success: 47 125 50;
+  --c-warning: 165 106 20;
+  --c-danger: 178 64 64;
+  --c-info: 42 111 151;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --c-bg: 15 23 19;
+    --c-surface: 22 33 27;
+    --c-surface-alt: 27 40 33;
+    --c-surface-strong: 36 51 41;
+    --c-text: 232 240 234;
+    --c-text-muted: 181 194 186;
+    --c-text-faint: 141 154 146;
+    --c-border: 44 60 50;
+    --c-divider: 38 52 44;
+    --c-primary: 88 176 130;
+    --c-primary-hover: 70 154 112;
+    --c-primary-soft: 32 54 44;
+    --c-secondary: 103 169 181;
+    --c-secondary-soft: 30 49 54;
+    --c-accent: 208 162 74;
+    --c-accent-soft: 58 49 32;
+    --c-success: 76 175 80;
+    --c-warning: 255 152 0;
+    --c-danger: 229 57 53;
+    --c-info: 100 181 246;
+  }
+}
+
 .scrollbar-hidden::-webkit-scrollbar {
   display: none;
 }
@@ -20,7 +70,7 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #ccc; 
+  background: #ccc;
   border-radius: 3px;
 }
 
@@ -30,5 +80,21 @@
 
 .custom-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: #ccc #f1f1f1; 
+  scrollbar-color: #ccc #f1f1f1;
+}
+
+/* Reveal animation */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  animation: reveal 0.3s ease-out;
 }
