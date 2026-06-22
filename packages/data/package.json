@@ -1,0 +1,13 @@
+{
+  "name": "@forestblock/data",
+  "version": "0.1.0",
+  "description": "Shared mock data and fixtures for ForestBlock ESG suite",
+  "private": true,
+  "exports": {
+    ".": "./esg-mock.ts"
+  },
+  "files": ["*.ts"],
+  "dependencies": {
+    "@forestblock/types": "workspace:*"
+  }
+}

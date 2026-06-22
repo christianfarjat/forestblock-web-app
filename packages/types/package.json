@@ -1,0 +1,11 @@
+{
+  "name": "@forestblock/types",
+  "version": "0.1.0",
+  "description": "Shared types for ForestBlock ESG suite",
+  "private": true,
+  "exports": {
+    ".": "./index.ts",
+    "./esg": "./esg.ts"
+  },
+  "files": ["*.ts"]
+}

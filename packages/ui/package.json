@@ -1,0 +1,26 @@
+{
+  "name": "@forestblock/ui",
+  "version": "0.1.0",
+  "description": "Shared ESG UI components for ForestBlock",
+  "private": true,
+  "exports": {
+    "./esg": "./esg/index.ts",
+    "./esg/kpi": "./esg/KPIWidget.tsx",
+    "./esg/tables": "./esg/tables.ts"
+  },
+  "files": ["esg/**"],
+  "dependencies": {
+    "@forestblock/types": "workspace:*",
+    "react": "^19",
+    "recharts": "^2",
+    "lucide-react": "latest"
+  },
+  "devDependencies": {
+    "@types/react": "^19",
+    "typescript": "^5"
+  },
+  "peerDependencies": {
+    "react": "^19",
+    "next": "^15"
+  }
+}

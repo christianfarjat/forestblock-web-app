@@ -1,0 +1,14 @@
+{
+  "name": "@forestblock/utils",
+  "version": "0.1.0",
+  "description": "Shared utilities for ForestBlock ESG suite",
+  "private": true,
+  "exports": {
+    ".": "./index.ts",
+    "./format": "./format.ts"
+  },
+  "files": ["*.ts"],
+  "dependencies": {
+    "@forestblock/types": "workspace:*"
+  }
+}
