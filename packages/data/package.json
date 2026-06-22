@@ -4,7 +4,7 @@
   "description": "Shared mock data and fixtures for ForestBlock ESG suite",
   "private": true,
   "exports": {
-    ".": "./esg-mock.ts"
+    ".": "./index.ts"
   },
   "files": ["*.ts"],
   "dependencies": {

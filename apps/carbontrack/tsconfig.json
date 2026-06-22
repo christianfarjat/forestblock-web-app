@@ -20,7 +20,15 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@forestblock/types": ["../../packages/types"],
+      "@forestblock/types/*": ["../../packages/types/*"],
+      "@forestblock/data": ["../../packages/data"],
+      "@forestblock/data/*": ["../../packages/data/*"],
+      "@forestblock/ui": ["../../packages/ui"],
+      "@forestblock/ui/*": ["../../packages/ui/*"],
+      "@forestblock/utils": ["../../packages/utils"],
+      "@forestblock/utils/*": ["../../packages/utils/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
