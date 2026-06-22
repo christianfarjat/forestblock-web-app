@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "apps/carbontrack/package.json",
+      "use": "@vercel/next"
+    },
+    {
+      "src": "apps/forestblock-web-app/package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(?!_next)(?!api).*",
+      "dest": "/",
+      "status": 307
+    }
+  ]
+}
