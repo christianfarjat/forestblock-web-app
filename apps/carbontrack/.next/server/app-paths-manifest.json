@@ -1,5 +1,4 @@
 {
-  "/test/page": "app/test/page.js",
-  "/test2/page": "app/test2/page.js",
+  "/esg/test-no-shell/page": "app/esg/test-no-shell/page.js",
   "/esg/overview/page": "app/esg/overview/page.js"
 }

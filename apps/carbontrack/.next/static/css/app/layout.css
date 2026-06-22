@@ -508,9 +508,6 @@ video {
 .mb-4 {
   margin-bottom: 16px;
 }
-.mt-4 {
-  margin-top: 16px;
-}
 .flex {
   display: flex;
 }
@@ -551,11 +548,6 @@ video {
   margin-top: calc(32px * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(32px * var(--tw-space-y-reverse));
 }
-.space-y-4 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(16px * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(16px * var(--tw-space-y-reverse));
-}
 .divide-y > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-y-reverse: 0;
   border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
@@ -570,9 +562,6 @@ video {
 }
 .rounded-lg {
   border-radius: 14px;
-}
-.rounded {
-  border-radius: 0.25rem;
 }
 .border {
   border-width: 1px;

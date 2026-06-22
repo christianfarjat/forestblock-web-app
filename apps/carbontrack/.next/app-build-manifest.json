@@ -6,6 +6,16 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
+    "/test-kpi/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/test-kpi/page.js"
+    ],
+    "/test-pillar/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/test-pillar/page.js"
+    ],
     "/esg/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -16,15 +26,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/esg/overview/page.js"
     ],
-    "/test/page": [
+    "/test-overview/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/test/page.js"
+      "static/chunks/app/test-overview/page.js"
     ],
-    "/test2/page": [
+    "/esg/test-no-shell/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/test2/page.js"
+      "static/chunks/app/esg/test-no-shell/page.js"
     ]
   }
 }

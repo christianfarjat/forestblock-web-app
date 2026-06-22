@@ -16,8 +16,8 @@ export default function OverviewPage() {
   const {
     kpis,
     pillars,
-    trends,
-    emissions,
+    trendChartData,
+    emissionsData,
     frameworks,
     deadlines,
     indicators,
@@ -41,8 +41,8 @@ export default function OverviewPage() {
         <div className="grid grid-cols-3 gap-4">
           {pillars.map((pillar) => (
             <PillarCard
-              key={pillar.pillar}
-              pillar={pillar.pillar}
+              key={pillar.type}
+              type={pillar.type as 'environmental' | 'social' | 'governance'}
               totalIndicators={pillar.totalIndicators}
               completeness={pillar.completeness}
               status={pillar.status as 'on_track' | 'attention' | 'at_risk'}
@@ -55,17 +55,23 @@ export default function OverviewPage() {
       {/* Charts */}
       <div className="grid grid-cols-2 gap-6">
         <TrendChart
-          data={trends.emissions}
-          lines={trends.emissionLines}
-          title="Emissions Trend (Last 6 months)"
+          data={trendChartData}
+          lines={[
+            { key: 'environmental', name: 'Environmental', color: 'rgb(var(--c-primary))' }
+          ]}
+          title="ESG Trend (Last 6 months)"
         />
         <div className="bg-surface rounded-lg border border-border p-5">
           <h3 className="text-sm font-semibold text-text mb-4">
             Emissions Breakdown
           </h3>
           <PieChart
-            data={emissions.data}
-            cells={emissions.cells}
+            data={emissionsData}
+            cells={emissionsData.map((d: any) => ({
+              value: d.emissions,
+              name: d.scope,
+              fill: `rgb(var(--c-${d.color}))`
+            }))}
           />
         </div>
       </div>
