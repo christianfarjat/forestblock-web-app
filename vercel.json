@@ -1,5 +1,0 @@
-{
-  "version": 2,
-  "root": "apps/prisma-esg-frontend",
-  "framework": "nextjs"
-}
