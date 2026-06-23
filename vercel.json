@@ -1,4 +1,15 @@
 {
-  "buildCommand": "pnpm install --filter=prisma-esg-frontend && pnpm --filter=prisma-esg-frontend run build",
-  "outputDirectory": "apps/prisma-esg-frontend/.next"
+  "version": 2,
+  "builds": [
+    {
+      "src": "apps/prisma-esg-frontend/package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "apps/prisma-esg-frontend/$1"
+    }
+  ]
 }
