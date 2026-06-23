@@ -13,7 +13,7 @@ export function useEvidence() {
       const evidence = await apiClient.uploadEvidence(file, indicatorId);
       setError(null);
       return evidence;
-    } catch (err) {
+    } catch (err: unknown) {
       setError('Failed to upload evidence');
       console.error(err);
       throw err;

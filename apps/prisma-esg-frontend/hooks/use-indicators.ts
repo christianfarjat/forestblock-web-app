@@ -25,7 +25,7 @@ export function useIndicators() {
       const data = await apiClient.listIndicators(selectedPillar || undefined);
       setIndicators(data);
       setError(null);
-    } catch (err) {
+    } catch (err: unknown) {
       setError('Failed to load indicators');
       console.error(err);
     } finally {
@@ -64,11 +64,11 @@ export function useIndicators() {
     updates: Partial<typeof indicators[0]>
   ) => {
     try {
-      const updated = await apiClient.updateIndicator(id, updates as any);
+      const updated = await apiClient.updateIndicator(id, updates as Record<string, unknown>);
       updateIndicator(id, updated);
       setError(null);
       return updated;
-    } catch (err) {
+    } catch (err: unknown) {
       setError('Failed to update indicator');
       console.error(err);
       throw err;

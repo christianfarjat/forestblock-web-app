@@ -53,7 +53,7 @@ export function EvidenceUploader({ indicatorId, onSuccess }: EvidenceUploaderPro
         fileInputRef.current.value = '';
       }
       onSuccess?.();
-    } catch (err) {
+    } catch (err: unknown) {
       console.error(err);
     }
   };

@@ -52,7 +52,7 @@ export function useAuth() {
                 if (orgs.length > 0 && !currentOrganization) {
                   selectOrganization(orgs[0].organization!, orgs[0].role);
                 }
-              } catch (err) {
+              } catch (err: unknown) {
                 setError('Failed to load user data');
                 console.error(err);
               }
@@ -67,7 +67,7 @@ export function useAuth() {
             setLoading(false);
           }
         });
-      } catch (err) {
+      } catch (err: unknown) {
         setError('Failed to initialize auth');
         console.error(err);
         setLoading(false);
@@ -88,7 +88,7 @@ export function useAuth() {
       await signOut(auth);
       logout();
       apiClient.clearContext();
-    } catch (err) {
+    } catch (err: unknown) {
       setError('Failed to sign out');
       console.error(err);
     }

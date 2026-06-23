@@ -47,7 +47,7 @@ export function Dashboard() {
     try {
       const data = await apiClient.getFrameworkCoverage();
       setFrameworks(data);
-    } catch (err) {
+    } catch (err: unknown) {
       console.error('Failed to load frameworks:', err);
     }
   };
