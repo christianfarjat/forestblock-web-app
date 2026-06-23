@@ -1,0 +1,4 @@
+{
+  "buildCommand": "cd apps/prisma-esg-frontend && npm install && npm run build",
+  "outputDirectory": "apps/prisma-esg-frontend/.next"
+}
