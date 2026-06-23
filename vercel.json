@@ -1,5 +1,5 @@
 {
-  "buildCommand": "bash build.sh",
+  "buildCommand": "cd apps/prisma-esg-frontend && npm install --legacy-peer-deps && npm run build",
   "outputDirectory": "apps/prisma-esg-frontend/.next",
-  "installCommand": "npm install --legacy-peer-deps --prefix=./apps/prisma-esg-frontend"
+  "installCommand": "echo 'Installing in subdirectory only'"
 }
