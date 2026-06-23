@@ -1,15 +1,5 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "apps/prisma-esg-frontend/package.json",
-      "use": "@vercel/next"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "apps/prisma-esg-frontend/$1"
-    }
-  ]
+  "buildCommand": "cd apps/prisma-esg-frontend && npm ci && npm run build",
+  "outputDirectory": "apps/prisma-esg-frontend/.next",
+  "installCommand": "npm install -g pnpm && pnpm install"
 }
