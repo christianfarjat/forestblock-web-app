@@ -1,4 +1,5 @@
 {
-  "buildCommand": "cd apps/prisma-esg-frontend && pnpm install && pnpm build",
-  "outputDirectory": "apps/prisma-esg-frontend/.next"
+  "version": 2,
+  "root": "apps/prisma-esg-frontend",
+  "framework": "nextjs"
 }
