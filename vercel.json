@@ -1,5 +1,9 @@
 {
-  "buildCommand": "cd apps/prisma-esg-frontend && npm install --legacy-peer-deps && npm run build",
-  "outputDirectory": "apps/prisma-esg-frontend/.next",
-  "installCommand": "echo 'Installing in subdirectory only'"
+  "version": 2,
+  "builds": [
+    {
+      "src": "apps/prisma-esg-frontend/package.json",
+      "use": "@vercel/next"
+    }
+  ]
 }
