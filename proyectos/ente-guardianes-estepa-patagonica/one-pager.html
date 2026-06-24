@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guardianes de la Estepa Patagónica · One-pager comercial | ForestBlock</title>
+  <meta name="description" content="One-pager comercial del proyecto Guardianes de la Estepa Patagónica: carbono de suelo en la Meseta de Somuncurá. Inversión, compra de créditos y offtake." />
+
+  <style>
+    @font-face { font-family:"Aeonik"; src:url("./fonts/Aeonik-Regular.otf") format("opentype"); font-weight:400; font-display:swap; }
+    @font-face { font-family:"Aeonik"; src:url("./fonts/Aeonik-Medium.otf") format("opentype"); font-weight:500; font-display:swap; }
+    @font-face { font-family:"Aeonik"; src:url("./fonts/Aeonik-Bold.otf") format("opentype"); font-weight:700; font-display:swap; }
+
+    :root {
+      --bg:#FCFFF6; --lime:#DAFAA1; --lime-b:#BFF179; --forest:#192C1F; --forest-2:#243B2C; --grey:#76756E;
+      --font:"Aeonik","Manrope",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+    }
+    * { box-sizing:border-box; }
+    html,body { margin:0; }
+    body {
+      font-family:var(--font); color:var(--forest); background:#e9ece3;
+      line-height:1.45; -webkit-font-smoothing:antialiased;
+    }
+
+    /* Hoja A4 */
+    .sheet {
+      width:210mm; min-height:297mm; margin:14px auto; background:var(--bg);
+      padding:16mm 15mm 14mm; box-shadow:0 8px 40px rgba(0,0,0,.18);
+      display:flex; flex-direction:column;
+    }
+
+    /* Topbar */
+    .top { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
+    .brand { display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:15px; }
+    .brand .dot { width:9px; height:9px; border-radius:50%; background:var(--forest); display:inline-block; }
+    .tag-mini { font-size:11px; color:var(--grey); }
+
+    /* Header verde */
+    .head {
+      background:var(--forest); color:var(--bg); border-radius:16px; padding:22px 24px; margin-bottom:16px;
+    }
+    .eyebrow { display:inline-block; font-size:11px; font-weight:600; letter-spacing:.04em; text-transform:uppercase;
+      color:var(--forest); background:var(--lime-b); padding:4px 11px; border-radius:999px; margin-bottom:12px; }
+    .head h1 { font-size:30px; line-height:1.05; letter-spacing:-.02em; margin:0 0 8px; }
+    .head p { margin:0; font-size:13.5px; color:rgba(252,255,246,.85); max-width:60ch; }
+
+    /* Stats band */
+    .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:0 0 18px; }
+    .stat { background:var(--lime); border-radius:12px; padding:12px 14px; }
+    .stat b { display:block; font-size:18px; letter-spacing:-.02em; }
+    .stat span { font-size:11px; color:var(--forest-2); }
+
+    /* Secciones */
+    .kick { font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--grey); margin:0 0 8px; }
+    .about { font-size:12.5px; color:var(--forest-2); margin:0 0 18px; max-width:none; }
+    .about strong { color:var(--forest); }
+
+    /* Ofertas comerciales */
+    .offers { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:16px; }
+    .offer { border:1px solid rgba(25,44,31,.16); border-radius:14px; padding:14px; display:flex; flex-direction:column; background:#fff; }
+    .offer .oe { font-size:10.5px; font-weight:600; color:var(--forest); background:var(--lime); align-self:flex-start; padding:3px 9px; border-radius:999px; margin-bottom:9px; }
+    .offer h3 { font-size:14px; line-height:1.15; margin:0 0 7px; letter-spacing:-.01em; }
+    .offer p { font-size:11px; color:var(--forest-2); margin:0 0 10px; }
+    .offer .act { margin-top:auto; font-size:12px; font-weight:700; color:var(--forest); }
+    .offer .trust { font-size:9.5px; color:var(--grey); margin-top:7px; padding-top:7px; border-top:1px solid rgba(25,44,31,.12); line-height:1.4; }
+
+    /* Roles + contacto */
+    .grid2 { display:grid; grid-template-columns:1.3fr 1fr; gap:14px; margin-bottom:14px; }
+    .panel { background:var(--lime); border-radius:14px; padding:14px 16px; }
+    .panel.forest { background:var(--forest); color:var(--bg); }
+    .roles { list-style:none; margin:0; padding:0; }
+    .roles li { font-size:11.5px; margin-bottom:8px; }
+    .roles li:last-child { margin-bottom:0; }
+    .roles .r { display:block; font-size:10px; color:var(--forest-2); }
+    .roles .n { font-weight:700; }
+    .panel.forest h3 { margin:0 0 8px; font-size:15px; }
+    .panel.forest a { color:var(--lime-b); font-weight:700; text-decoration:none; }
+    .panel.forest p { margin:0 0 6px; font-size:12px; color:rgba(252,255,246,.85); }
+
+    /* Footer legal */
+    .legal { margin-top:auto; padding-top:12px; border-top:1px solid rgba(25,44,31,.15); font-size:9px; color:var(--grey); line-height:1.5; }
+    .legal strong { color:var(--forest-2); }
+
+    /* Print */
+    @media print {
+      html,body { background:#fff; }
+      .sheet { margin:0; box-shadow:none; width:auto; min-height:auto; padding:12mm; }
+      .no-print { display:none !important; }
+      * { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    }
+    @page { size:A4; margin:0; }
+
+    .printbar { text-align:center; margin:10px; }
+    .printbar button { font-family:var(--font); font-size:14px; font-weight:600; background:var(--forest); color:#fff; border:none; padding:10px 22px; border-radius:999px; cursor:pointer; }
+  </style>
+</head>
+<body>
+  <div class="printbar no-print">
+    <button type="button" onclick="window.print()">Descargar / Imprimir PDF</button>
+  </div>
+
+  <div class="sheet">
+    <div class="top">
+      <span class="brand"><span class="dot"></span> ForestBlock</span>
+      <span class="tag-mini">One-pager comercial · Junio 2026</span>
+    </div>
+
+    <div class="head">
+      <span class="eyebrow">Proyecto de carbono · Patagonia Argentina</span>
+      <h1>Guardianes de la Estepa Patagónica</h1>
+      <p>Ganadería ovina regenerativa y carbono de suelo en la Meseta de Somuncurá, Río Negro.
+        Producción y conservación, juntas — codesarrollado entre el ENTE y ForestBlock bajo
+        metodología Verra VM0042 + CCB.</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><b>61.346 ha</b><span>Superficie del proyecto</span></div>
+      <div class="stat"><b>12</b><span>Establecimientos</span></div>
+      <div class="stat"><b>VM0042 + CCB</b><span>Metodología y estándar</span></div>
+      <div class="stat"><b>Factibilidad ✓</b><span>Ambiental aprobada (jun-2026)</span></div>
+    </div>
+
+    <p class="kick">El proyecto</p>
+    <p class="about">
+      Doce familias productoras administran <strong>61.346 hectáreas</strong> de estepa sobre
+      tierra privada dentro del Área Natural Protegida Meseta de Somuncurá. El manejo regenerativo
+      del pastoreo recupera el coirón, mejora la salud del suelo y permite capturar carbono
+      orgánico, con co-beneficios sociales y de biodiversidad (estándar CCB) y
+      <strong>monitoreo satelital independiente (MRV)</strong> a cargo de ForestBlock. El proyecto
+      ya cuenta con <strong>factibilidad ambiental provincial aprobada</strong> y avanza hacia el
+      muestreo de suelos (INTA), el registro ante Verra y la verificación.
+    </p>
+
+    <p class="kick">Tres formas de ser parte</p>
+    <div class="offers">
+      <div class="offer">
+        <span class="oe">Inversores y financiadores</span>
+        <h3>Invertí en la restauración de la estepa</h3>
+        <p>Buscamos socios financieros para escalar un proyecto con factibilidad aprobada,
+          metodología Verra VM0042 + CCB y MRV satelital. Financiá el desarrollo temprano.</p>
+        <span class="act">→ Hablemos de inversión</span>
+        <span class="trust">Etapa de validación · Verra VCS + CCB · 61.346 ha · MRV ForestBlock</span>
+      </div>
+      <div class="offer">
+        <span class="oe">Empresas con metas climáticas</span>
+        <h3>Asegurá créditos con integridad, desde el origen</h3>
+        <p>Créditos de carbono de suelo de la Patagonia, con co-beneficios sociales y de
+          biodiversidad, trazabilidad satelital y verificación independiente.</p>
+        <span class="act">→ Quiero comprar créditos</span>
+        <span class="trust">1 VCU = 1 tCO₂e · Verra VCS + CCB · verificación independiente</span>
+      </div>
+      <div class="offer">
+        <span class="oe">Compradores estratégicos</span>
+        <h3>Asegurá tu volumen con compra anticipada</h3>
+        <p>Contrato de offtake (forward / ERPA): acceso prioritario a los créditos futuros y
+          acompañamiento del desarrollo desde la base. Para planes climáticos a varios años.</p>
+        <span class="act">→ Conversemos un offtake</span>
+        <span class="trust">Forward / ERPA · entrega sujeta a verificación Verra</span>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="panel">
+        <p class="kick">Codesarrollo</p>
+        <ul class="roles">
+          <li><span class="r">Titular del proyecto</span><span class="n">ENTE — Ente de Desarrollo de la Región Sur</span></li>
+          <li><span class="r">Developer registrado ante Verra · Tecnología MRV</span><span class="n">ForestBlock (marca de Shale Synergy SA)</span></li>
+          <li><span class="r">Socio estratégico</span><span class="n">MJM Energía SA</span></li>
+        </ul>
+      </div>
+      <div class="panel forest">
+        <h3>Conversemos</h3>
+        <p>Inversión · compra de créditos · offtake</p>
+        <p><a href="mailto:comercial@forestblock.tech?subject=Guardianes%20de%20la%20Estepa%20-%20Consulta%20comercial">comercial@forestblock.tech</a></p>
+        <p><a href="https://forestblock.tech/proyectos/ente-guardianes-estepa-patagonica">forestblock.tech/proyectos</a></p>
+      </div>
+    </div>
+
+    <p class="legal">
+      <strong>Comunicación de un proyecto en etapa de validación.</strong> Cifras de créditos,
+      precios y proyecciones de retorno se tratan en conversaciones privadas, no en este documento.
+      ForestBlock es marca de <strong>Shale Synergy SA</strong>, developer registrado ante Verra;
+      <strong>MJM Energía SA</strong> es socio estratégico. Proyecto codesarrollado entre el
+      <strong>ENTE</strong> y ForestBlock (Shale Synergy SA). © 2026 — Todos los derechos reservados.
+    </p>
+  </div>
+</body>
+</html>
