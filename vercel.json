@@ -1,8 +1,9 @@
 {
-  "framework": null,
-  "buildCommand": "echo 'Static landing - no build step'",
-  "installCommand": "echo 'Static landing - no install step'",
-  "outputDirectory": "proyectos/ente-guardianes-estepa-patagonica",
-  "cleanUrls": true,
-  "trailingSlash": false
+  "version": 2,
+  "builds": [
+    {
+      "src": "apps/prisma-esg-frontend/package.json",
+      "use": "@vercel/next"
+    }
+  ]
 }
