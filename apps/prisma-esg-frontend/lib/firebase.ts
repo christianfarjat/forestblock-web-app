@@ -11,7 +11,7 @@ import {
 
 /**
  * Firebase Configuration para Prisma ESG
- * Credenciales cargadas desde variables de entorno .env.local
+ * Credenciales cargadas desde variables de entorno
  * Project ID: 421467996684
  */
 const firebaseConfig = {
@@ -22,6 +22,16 @@ const firebaseConfig = {
   messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
+
+// Debug: Verifica que las variables estén cargadas
+if (typeof window !== 'undefined') {
+  if (!firebaseConfig.apiKey) {
+    console.error('⚠️ NEXT_PUBLIC_FIREBASE_API_KEY no está cargada');
+  }
+  if (!firebaseConfig.projectId) {
+    console.error('⚠️ NEXT_PUBLIC_FIREBASE_PROJECT_ID no está cargada');
+  }
+}
 
 // Inicializa Firebase App - evita reinicialización en HMR
 const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
