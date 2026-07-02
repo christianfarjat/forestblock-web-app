@@ -1,0 +1,61 @@
+{
+  "$comment": "Fuente única de verdad para IDs de Drive, mapeo de archivos y roles del dataroom ENTE. Ref: handoff MJM-FB-TI-IT-003. Los folder IDs y el SHEET_ID no son secretos, pero el repo va privado igual.",
+  "project": {
+    "name": "Proyecto Carbono ENTE — Río Negro (Ganadería Regenerativa)",
+    "standard": "Verra VCS + CCB",
+    "docCodePrefix": "MJM-FB"
+  },
+  "dataroom": {
+    "name": "ENTE — Dataroom Verra (MJM-FB)",
+    "parentFolderId": "1ENWFAx0Arp_Gqj02Cx24jqQxyLYlroZE"
+  },
+  "folders": {
+    "A_Expediente_Interno/01_PDD": "1grdc9Vkmjw4-9aRWoNhxVvA9fKml-Qg8",
+    "A_Expediente_Interno/00_Base_Habilitantes": "1rS_0pki4wP6jFGFlupTPg_c7UvA8SAGc"
+  },
+  "cleanup": {
+    "$comment": "Google Doc de prueba mal convertido a borrar en Fase 2.",
+    "testDocToDelete": "177EEbIhIpUaXBj8n0ABbgP9daSqgdCICgMEO1XRT8Lw"
+  },
+  "roles": {
+    "$comment": "Sólo INTERNAL cargado. VVB/BUYERS/AUDITOR se completan cuando se designen.",
+    "INTERNAL": ["christian.farjat@mjmenergia.com"],
+    "VVB": [],
+    "BUYERS": [],
+    "AUDITOR": []
+  },
+  "fileMapping": {
+    "A_Expediente_Interno/01_PDD": [
+      "MJM-FB-PR-INF-003-V0_Draft_PDD_ENTE.docx",
+      "MJM-FB-PR-INF-004-V0_PDD_Sprint1_Identidad.docx",
+      "MJM-FB-PR-INF-005-V0_PDD_Sprint2_Elegibilidad.docx",
+      "MJM-FB-PR-INF-006-V0_PDD_Sprint3_Baseline_Adicionalidad.docx",
+      "MJM-FB-PR-INF-007-V0_PDD_Sprint4_Cuantificacion_Andamiaje.docx",
+      "MJM-FB-PR-INF-008-V0_PDD_Sprint5_Monitoreo.docx",
+      "MJM-FB-PR-INF-009-V0_PDD_Sprint6_Safeguards_Stakeholders.docx",
+      "MJM-FB-PR-INF-010-V0_PDD_Sprint7_Compliance.docx",
+      "MJM-FB-PR-INF-011-V0_PDD_Sprint8_CCB.docx",
+      "MJM-FB-PR-INF-012-V0_PDD_QAQC_CrossCheck.docx"
+    ],
+    "A_Expediente_Interno/00_Base_Habilitantes": [
+      "MJM-FB-TI-PLA-001-V0_Arquitectura_Stack_Documental_ENTE.docx",
+      "MJM-FB-PR-INF-002-V0_Matriz_Benchmarks_Documentacion_Verra.docx",
+      "MJM-FB-TI-PLA-002-V0_Dataroom_Gobernanza.docx",
+      "MJM-FB-TI-IT-001-V0_Dataroom_Deployment_Runbook.docx",
+      "MJM-FB-TI-IT-002-V0_ClaudeCode_Poblado_Dataroom.docx",
+      "MJM-FB-PR-FOR-011-V0_Checklist_Maestro_Documentacion_Verra.xlsx",
+      "00_INDICE_Stack_Documental_ENTE.docx"
+    ]
+  },
+  "backend": {
+    "$comment": "El backend AppSheet NO se sube como .xlsx: se convierte a Google Sheet nativo en Fase 3. Pegar el SHEET_ID resultante acá y en appsscript/Dataroom.gs.",
+    "sourceXlsx": "MJM-FB-TI-FOR-001-V0_AppSheet_Schema_Backend.xlsx",
+    "convertToGoogleSheet": true,
+    "targetFolder": "A_Expediente_Interno/00_Base_Habilitantes",
+    "sheetId": ""
+  },
+  "expectedCounts": {
+    "A_Expediente_Interno/01_PDD": 10,
+    "A_Expediente_Interno/00_Base_Habilitantes": 7
+  }
+}
