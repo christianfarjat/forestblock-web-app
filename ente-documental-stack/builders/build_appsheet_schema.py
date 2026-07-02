@@ -168,8 +168,8 @@ def build_empty(ws, headers, widths):
     autosize(ws, widths)
 
 
-def main():
-    cfg = load_config()
+def build_workbook(cfg):
+    """Construye y devuelve el workbook backend (sin guardarlo)."""
     wb = Workbook()
 
     ws_docs = wb.active
@@ -194,11 +194,16 @@ def main():
         ["event_id", "timestamp", "actor", "action", "target", "details"],
         [24, 22, 30, 20, 24, 40],
     )
+    return wb
 
+
+def main():
+    cfg = load_config()
+    wb = build_workbook(cfg)
     os.makedirs(OUT_DIR, exist_ok=True)
     out_path = os.path.join(OUT_DIR, OUT_NAME)
     wb.save(out_path)
-    rows = ws_docs.max_row - 1
+    rows = wb["Documents"].max_row - 1
     print(f"OK  {out_path}")
     print(f"    Documents pre-cargado con {rows} filas · pestañas: {', '.join(wb.sheetnames)}")
 

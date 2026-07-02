@@ -26,13 +26,14 @@ Salida:
 
 import argparse
 import datetime
+import io
 import json
 import os
 import sys
 
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
-from docx.shared import Pt, RGBColor
+from docx.shared import Inches, Pt, RGBColor
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 CONFIG_PATH = os.path.join(HERE, "..", "config", "dataroom.config.json")
@@ -41,6 +42,12 @@ OUT_DIR = os.path.join(HERE, "output")
 # Reutiliza las secciones del checklist maestro como fuente del andamiaje del PDD.
 sys.path.insert(0, HERE)
 from build_checklist import SECTIONS  # noqa: E402
+
+# Diagrama de arquitectura (opcional: requiere Pillow). Degrada si no está.
+try:
+    from diagram import render_architecture  # noqa: E402
+except Exception:  # pragma: no cover
+    render_architecture = None
 
 FOREST = RGBColor(0x1F, 0x4E, 0x3D)
 GREY = RGBColor(0x70, 0x70, 0x70)
@@ -146,8 +153,24 @@ def build_indice(cfg, fecha):
     return "00_INDICE_Stack_Documental_ENTE.docx", doc
 
 
+def add_architecture_diagram(doc):
+    doc.add_heading("Diagrama de arquitectura", level=1)
+    if render_architecture is None:
+        doc.add_paragraph("(Diagrama no generado: falta Pillow. Instalar con pip install -r requirements.txt.)")
+        return
+    try:
+        stream = io.BytesIO()
+        render_architecture(stream)
+        stream.seek(0)
+        doc.add_picture(stream, width=Inches(6.4))
+        doc.paragraphs[-1].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    except Exception as err:  # pragma: no cover
+        doc.add_paragraph(f"(No se pudo generar el diagrama: {err})")
+
+
 def build_arquitectura(fecha):
     doc = new_doc("MJM-FB-TI-PLA-001-V0", "Arquitectura del Stack Documental ENTE", fecha)
+    add_architecture_diagram(doc)
     add_outline(doc, [
         ("1. Propósito y alcance", "Objetivo del stack documental y qué cubre / qué no."),
         ("2. Estructura del dataroom", "Árbol de carpetas del Shared Drive y su racional (Expediente Interno, PDD, Base Habilitantes, Snapshots)."),
