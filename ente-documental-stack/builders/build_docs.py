@@ -1,38 +1,59 @@
 #!/usr/bin/env python3
 """
-Builder: documentos .docx estructurales del stack (python-docx).
+Builder: documentos .docx del stack (python-docx).
 
-Genera con el estilo de casa MJM-FB (carátula + metadatos + historial de cambios):
+Genera con el estilo de casa MJM-FB (carátula + metadatos + historial de cambios).
+
+Estructurales:
   - 00_INDICE_Stack_Documental_ENTE.docx           (índice DERIVADO del config: registro completo)
   - MJM-FB-TI-PLA-001-V0_Arquitectura_Stack_Documental_ENTE.docx   (esqueleto)
   - MJM-FB-TI-PLA-002-V0_Dataroom_Gobernanza.docx                  (esqueleto)
   - MJM-FB-TI-IT-001-V0_Dataroom_Deployment_Runbook.docx           (esqueleto)
 
-NO genera el contenido sustantivo del PDD (los MJM-FB-PR-INF-0xx se redactan aparte):
-estos son andamiajes para completar, no documentos finales.
+PDD (andamiaje derivado del checklist maestro — build_checklist.SECTIONS):
+  - MJM-FB-PR-INF-003-V0_Draft_PDD_ENTE.docx        (documento maestro con índice de sprints)
+  - MJM-FB-PR-INF-004..011  (Sprints 1–8)  y  -012 (QA/QC)
+    Cada requisito del checklist se vuelca como una sección a completar.
+
+IMPORTANTE: son ANDAMIAJES para completar, NO documentos finales. No se fabrica el
+contenido técnico del PDD; cada sección queda como encabezado + guía de qué cubrir.
 
 Uso:
-    python3 build_docs.py [--fecha AAAA-MM-DD]
+    python3 build_docs.py [--fecha AAAA-MM-DD] [--incluir estructurales|pdd|todos]
 Salida:
     builders/output/*.docx
 """
 
 import argparse
 import datetime
+import io
 import json
 import os
+import sys
 
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
-from docx.shared import Pt, RGBColor
+from docx.shared import Inches, Pt, RGBColor
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 CONFIG_PATH = os.path.join(HERE, "..", "config", "dataroom.config.json")
 OUT_DIR = os.path.join(HERE, "output")
 
+# Reutiliza las secciones del checklist maestro como fuente del andamiaje del PDD.
+sys.path.insert(0, HERE)
+from build_checklist import SECTIONS  # noqa: E402
+
+# Diagrama de arquitectura (opcional: requiere Pillow). Degrada si no está.
+try:
+    from diagram import render_architecture  # noqa: E402
+except Exception:  # pragma: no cover
+    render_architecture = None
+
 FOREST = RGBColor(0x1F, 0x4E, 0x3D)
+GREY = RGBColor(0x70, 0x70, 0x70)
 PROYECTO = "Proyecto Carbono ENTE — Río Negro (Ganadería Regenerativa)"
 ESTANDAR = "Verra VCS + CCB"
+PDD_FOLDER = "A_Expediente_Interno/01_PDD"
 
 
 def load_config():
@@ -132,8 +153,24 @@ def build_indice(cfg, fecha):
     return "00_INDICE_Stack_Documental_ENTE.docx", doc
 
 
+def add_architecture_diagram(doc):
+    doc.add_heading("Diagrama de arquitectura", level=1)
+    if render_architecture is None:
+        doc.add_paragraph("(Diagrama no generado: falta Pillow. Instalar con pip install -r requirements.txt.)")
+        return
+    try:
+        stream = io.BytesIO()
+        render_architecture(stream)
+        stream.seek(0)
+        doc.add_picture(stream, width=Inches(6.4))
+        doc.paragraphs[-1].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    except Exception as err:  # pragma: no cover
+        doc.add_paragraph(f"(No se pudo generar el diagrama: {err})")
+
+
 def build_arquitectura(fecha):
     doc = new_doc("MJM-FB-TI-PLA-001-V0", "Arquitectura del Stack Documental ENTE", fecha)
+    add_architecture_diagram(doc)
     add_outline(doc, [
         ("1. Propósito y alcance", "Objetivo del stack documental y qué cubre / qué no."),
         ("2. Estructura del dataroom", "Árbol de carpetas del Shared Drive y su racional (Expediente Interno, PDD, Base Habilitantes, Snapshots)."),
@@ -176,26 +213,95 @@ def build_runbook_doc(fecha):
     return "MJM-FB-TI-IT-001-V0_Dataroom_Deployment_Runbook.docx", doc
 
 
+# ── PDD (andamiaje derivado del checklist maestro) ────────────────────────────
+
+def pdd_file_map(cfg):
+    """Mapa prefijo-de-código -> (filename, code, titulo) para los archivos de 01_PDD."""
+    out = {}
+    for filename in cfg["fileMapping"][PDD_FOLDER]:
+        code, titulo = parse_code(filename)      # code = MJM-FB-PR-INF-004-V0
+        prefix = code.rsplit("-", 1)[0]          # MJM-FB-PR-INF-004
+        out[prefix] = (filename, code, titulo)
+    return out
+
+
+def add_hint(doc, text):
+    p = doc.add_paragraph(text)
+    p.runs[0].italic = True
+    p.runs[0].font.color.rgb = GREY
+    return p
+
+
+def build_requisitos(doc, items):
+    doc.add_heading("Requisitos a cubrir (del checklist maestro)", level=1)
+    for requisito, ref, met_ref, obligatorio in items:
+        doc.add_heading(requisito, level=2)
+        add_hint(doc, f"Completar. Referencia: {ref} · Metodología: {met_ref} · Obligatorio: {obligatorio}.")
+
+
+def build_pdd_doc(prefix, categoria, items, pmap, fecha):
+    filename, code, titulo = pmap[prefix]
+    doc = new_doc(code, titulo, fecha)
+    doc.add_heading("1. Alcance y objetivo del sprint", level=1)
+    add_hint(doc, f"Alcance: {categoria}. Completar objetivo, entradas, salidas y responsables del sprint.")
+    build_requisitos(doc, items)
+    return filename, doc
+
+
+def build_pdd_master(pmap, fecha):
+    filename, code, titulo = pmap["MJM-FB-PR-INF-003"]
+    doc = new_doc(code, titulo, fecha)
+    doc.add_heading("Estructura del PDD", level=1)
+    doc.add_paragraph(
+        "Documento maestro del PDD: consolida los sprints. Cada sprint tiene su documento propio "
+        "(ver más abajo). El detalle de requisitos vive en el checklist maestro MJM-FB-PR-FOR-011."
+    )
+    for categoria, doc_ref, items in SECTIONS:
+        doc.add_heading(categoria, level=2)
+        sub = pmap.get(doc_ref)
+        ref_txt = f"Documento: {sub[1]}" if sub else "Documento: (por asignar)"
+        add_hint(doc, f"{ref_txt} · {len(items)} requisitos.")
+    return filename, doc
+
+
+def build_pdd_skeletons(cfg, fecha):
+    pmap = pdd_file_map(cfg)
+    docs = []
+    if "MJM-FB-PR-INF-003" in pmap:
+        docs.append(build_pdd_master(pmap, fecha))
+    for categoria, doc_ref, items in SECTIONS:
+        if doc_ref in pmap:
+            docs.append(build_pdd_doc(doc_ref, categoria, items, pmap, fecha))
+    return docs
+
+
 def main():
-    parser = argparse.ArgumentParser(description="Genera los .docx estructurales del stack ENTE.")
+    parser = argparse.ArgumentParser(description="Genera los .docx del stack ENTE.")
     parser.add_argument("--fecha", default=datetime.date.today().isoformat(),
                         help="Fecha de emisión AAAA-MM-DD (default: hoy).")
+    parser.add_argument("--incluir", default="todos", choices=["estructurales", "pdd", "todos"],
+                        help="Qué generar (default: todos).")
     args = parser.parse_args()
 
     cfg = load_config()
     os.makedirs(OUT_DIR, exist_ok=True)
 
-    builders = [
-        build_indice(cfg, args.fecha),
-        build_arquitectura(args.fecha),
-        build_gobernanza(args.fecha),
-        build_runbook_doc(args.fecha),
-    ]
-    for name, doc in builders:
+    docs = []
+    if args.incluir in ("estructurales", "todos"):
+        docs += [
+            build_indice(cfg, args.fecha),
+            build_arquitectura(args.fecha),
+            build_gobernanza(args.fecha),
+            build_runbook_doc(args.fecha),
+        ]
+    if args.incluir in ("pdd", "todos"):
+        docs += build_pdd_skeletons(cfg, args.fecha)
+
+    for name, doc in docs:
         path = os.path.join(OUT_DIR, name)
         doc.save(path)
         print(f"OK  {path}")
-    print(f"    {len(builders)} documentos generados · fecha {args.fecha}")
+    print(f"    {len(docs)} documentos generados · incluir={args.incluir} · fecha {args.fecha}")
 
 
 if __name__ == "__main__":

@@ -19,11 +19,14 @@ ente-documental-stack/
 │   ├── .clasp.json.example
 │   └── README.md
 ├── builders/                       # generadores de entregables (Python)
-│   ├── build_appsheet_schema.py    # -> backend AppSheet (5 pestañas) · openpyxl
+│   ├── build_appsheet_schema.py    # -> backend AppSheet (7 pestañas) · openpyxl
 │   ├── build_checklist.py          # -> checklist Verra por sprint (--metodologia) · openpyxl
-│   ├── build_docs.py               # -> .docx: índice + esqueletos · python-docx
-│   ├── requirements.txt
-│   └── output/                     # .xlsx/.docx generados (gitignored)
+│   ├── build_docs.py               # -> .docx: índice + esqueletos + PDD por sprint · python-docx
+│   ├── diagram.py                  # -> diagrama de arquitectura (PNG, Pillow) embebido en el .docx
+│   ├── validate_config.py          # valida config (IDs, conteos 10+7, roles, duplicados)
+│   ├── test_builders.py            # pytest: blinda schema backend <-> CONFIG.TABS, conteos
+│   ├── requirements.txt · requirements-dev.txt
+│   └── output/                     # .xlsx/.docx/.png generados (gitignored)
 ├── runbooks/
 │   ├── DEPLOYMENT_RUNBOOK.md        # corrida completa (repo → Drive → Sheet → deploy)
 │   └── POBLADO_DATAROOM.md          # Fase 2: subir binarios a las carpetas
@@ -44,7 +47,7 @@ ente-documental-stack/
 pip install -r builders/requirements.txt
 python3 builders/build_appsheet_schema.py
 python3 builders/build_checklist.py          # o: --metodologia VM0032
-python3 builders/build_docs.py               # índice + esqueletos .docx
+python3 builders/build_docs.py               # índice + esqueletos + PDD por sprint (.docx)
 # luego seguí runbooks/DEPLOYMENT_RUNBOOK.md
 ```
 

@@ -35,12 +35,13 @@ Método de subida a Drive — elegí uno:
 cd builders
 python3 build_appsheet_schema.py   # -> output/MJM-FB-TI-FOR-001-V0_AppSheet_Schema_Backend.xlsx
 python3 build_checklist.py         # -> output/MJM-FB-PR-FOR-011-V0_Checklist_...xlsx  (--metodologia VM0032 si aplica)
-python3 build_docs.py              # -> output/00_INDICE_...docx + esqueletos arquitectura/gobernanza/runbook
+python3 build_docs.py              # -> índice + esqueletos estructurales + esqueletos de PDD por sprint
 cd ..
 ```
 
-`build_docs.py` genera el índice (derivado del config) y **esqueletos** con estilo de casa.
-El contenido sustantivo del PDD (`MJM-FB-PR-INF-0xx`) se redacta aparte; el scaffold no lo genera.
+`build_docs.py` genera el índice (derivado del config) y **esqueletos** con estilo de casa
+(incluye los PDD por sprint, con cada requisito del checklist como sección a completar; usá
+`--incluir estructurales|pdd` para acotar). El contenido sustantivo del PDD se redacta aparte.
 
 ## Fase 1 · Repo GitHub (privado)
 

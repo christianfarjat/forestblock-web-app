@@ -191,18 +191,23 @@ def build_metodologia_sheet(ws, metodologia):
     ws.column_dimensions["B"].width = 90
 
 
+def build_workbook(metodologia="VM0042"):
+    """Construye y devuelve (workbook, n_requisitos) sin guardarlo."""
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Checklist"
+    n = build_checklist_sheet(ws, metodologia)
+    build_metodologia_sheet(wb.create_sheet("Metodologia"), metodologia)
+    return wb, n
+
+
 def main():
     parser = argparse.ArgumentParser(description="Genera el checklist maestro Verra de ENTE.")
     parser.add_argument("--metodologia", default="VM0042", choices=list(METODOLOGIAS.keys()),
                         help="Metodología Verra de referencia (default VM0042).")
     args = parser.parse_args()
 
-    wb = Workbook()
-    ws = wb.active
-    ws.title = "Checklist"
-    n = build_checklist_sheet(ws, args.metodologia)
-    build_metodologia_sheet(wb.create_sheet("Metodologia"), args.metodologia)
-
+    wb, n = build_workbook(args.metodologia)
     os.makedirs(OUT_DIR, exist_ok=True)
     out_path = os.path.join(OUT_DIR, OUT_NAME)
     wb.save(out_path)
