@@ -29,16 +29,18 @@ Método de subida a Drive — elegí uno:
   `ENTE — Dataroom Verra (MJM-FB)`. Si está, subís con `cp`.
 - **(B) Sin mount**: instalá `rclone` (`brew install rclone`) o `gdrive` y hacé el login OAuth una vez.
 
-## Fase 0.5 · Regenerar los .xlsx
+## Fase 0.5 · Regenerar los entregables
 
 ```bash
 cd builders
 python3 build_appsheet_schema.py   # -> output/MJM-FB-TI-FOR-001-V0_AppSheet_Schema_Backend.xlsx
-python3 build_checklist.py         # -> output/MJM-FB-PR-FOR-011-V0_Checklist_Maestro_Documentacion_Verra.xlsx
+python3 build_checklist.py         # -> output/MJM-FB-PR-FOR-011-V0_Checklist_...xlsx  (--metodologia VM0032 si aplica)
+python3 build_docs.py              # -> output/00_INDICE_...docx + esqueletos arquitectura/gobernanza/runbook
 cd ..
 ```
 
-Los `.docx` (PDD y demás) se editan aparte; este scaffold no los genera.
+`build_docs.py` genera el índice (derivado del config) y **esqueletos** con estilo de casa.
+El contenido sustantivo del PDD (`MJM-FB-PR-INF-0xx`) se redacta aparte; el scaffold no lo genera.
 
 ## Fase 1 · Repo GitHub (privado)
 
@@ -96,4 +98,5 @@ carpetas por folder ID **sin convertir** a Google Docs, borrar el Google Doc de 
 2. **Bot de AppSheet Automation** (UI de AppSheet):
    Event `Documents.stage = "Approved for VVB"` → *Call a webhook* al `/exec`,
    body `{"action":"snapshot","fileId":"<<[drive_file_id]>>","token":"<CONFIG.WEBHOOK_TOKEN>"}`.
+   El webhook también soporta `share` y `register` (ver `appsscript/README.md`).
 3. Cargar emails de VVB/compradores en `CONFIG.ROLES` (y en la pestaña `Roles`) cuando se designen.
