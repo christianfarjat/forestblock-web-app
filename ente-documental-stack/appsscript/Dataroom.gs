@@ -6,8 +6,13 @@
  * Qué hace:
  *   - setupDataroom():  valida acceso a carpetas + backend Sheet y crea la carpeta de
  *                       snapshots. REQUIERE autorización manual la primera vez (scopes Drive).
- *   - doPost(e):        webhook para el Bot de AppSheet Automation.
- *                       body: {"action":"snapshot","fileId":"<drive_file_id>","token":"<secreto>"}
+ *   - doPost(e):        webhook para el Bot de AppSheet Automation. Acciones soportadas:
+ *                         · snapshot  -> congela copia inmutable del archivo aprobado.
+ *                         · share     -> comparte un archivo con los emails de un rol.
+ *                         · register  -> upsert de una fila en Documents desde AppSheet.
+ *                         · ping      -> healthcheck.
+ *                       body: {"action":"...","token":"<secreto>", ...campos de la acción}
+ *   - doGet(e):         healthcheck legible al abrir la URL en el navegador.
  *   - snapshotFile_():  congela una copia inmutable del archivo aprobado y la registra.
  *
  * PENDIENTE de completar antes de operar:
@@ -121,9 +126,16 @@ function setupDataroom() {
  * WEBHOOK — llamado por el Bot de AppSheet Automation.
  * ──────────────────────────────────────────────────────────────────────── */
 
+/** Healthcheck legible: abrir la URL del deploy en el navegador no debe dar error. */
+function doGet() {
+  return jsonOut_({ ok: true, service: 'ENTE Dataroom Automation', hint: 'Usar POST con {action, token}.' });
+}
+
 /**
- * Endpoint del web app. Espera JSON:
- *   {"action":"snapshot","fileId":"<drive_file_id>","token":"<CONFIG.WEBHOOK_TOKEN>"}
+ * Endpoint del web app. Espera JSON con {action, token, ...}. Ejemplos:
+ *   {"action":"snapshot","fileId":"<id>","token":"<TK>"}
+ *   {"action":"share","fileId":"<id>","role":"VVB","access":"view","token":"<TK>"}
+ *   {"action":"register","document":{"codigo":"MJM-FB-...","drive_file_id":"<id>","stage":"DRAFT"},"token":"<TK>"}
  */
 function doPost(e) {
   try {
@@ -132,17 +144,28 @@ function doPost(e) {
     }
     const body = JSON.parse(e.postData.contents);
 
-    // Autenticación por secreto compartido.
-    if (!CONFIG.WEBHOOK_TOKEN || body.token !== CONFIG.WEBHOOK_TOKEN) {
+    // Autenticación por secreto compartido (rechaza si no hay token configurado).
+    if (!CONFIG.WEBHOOK_TOKEN || String(body.token || '') !== CONFIG.WEBHOOK_TOKEN) {
       logAudit_('webhook_denied', String(body.fileId || ''), 'token inválido');
       return jsonOut_({ ok: false, error: 'No autorizado.' });
     }
 
     const action = String(body.action || '').toLowerCase();
+    const actor = body.actor || 'appsheet-bot';
+
     if (action === 'snapshot') {
       if (!body.fileId) return jsonOut_({ ok: false, error: 'Falta fileId.' });
-      const result = snapshotFile_(body.fileId, body.actor || 'appsheet-bot');
-      return jsonOut_({ ok: true, action: 'snapshot', result: result });
+      return jsonOut_({ ok: true, action: 'snapshot', result: snapshotFile_(body.fileId, actor) });
+    }
+
+    if (action === 'share') {
+      if (!body.fileId || !body.role) return jsonOut_({ ok: false, error: 'Faltan fileId/role.' });
+      return jsonOut_({ ok: true, action: 'share', result: shareWithRole_(body.fileId, body.role, body.access || 'view') });
+    }
+
+    if (action === 'register') {
+      if (!body.document) return jsonOut_({ ok: false, error: 'Falta document.' });
+      return jsonOut_({ ok: true, action: 'register', result: upsertDocument_(body.document) });
     }
 
     if (action === 'ping') {
@@ -218,6 +241,67 @@ function getRoleEmails_(role) {
   return (CONFIG.ROLES[key] || []).slice();
 }
 
+/**
+ * Comparte un archivo con todos los emails cargados para un rol.
+ * @param {string} access  'view' | 'comment' | 'edit'
+ * @return {{shared:number, role:string, access:string}}
+ */
+function shareWithRole_(fileId, role, access) {
+  const emails = getRoleEmails_(role);
+  if (!emails.length) {
+    logAudit_('share_skip', fileId, 'rol sin emails: ' + role);
+    return { shared: 0, role: role, access: String(access) };
+  }
+  const file = DriveApp.getFileById(fileId);
+  const a = String(access).toLowerCase();
+  emails.forEach(function (email) {
+    if (a === 'edit') file.addEditor(email);
+    else if (a === 'comment') file.addCommenter(email);
+    else file.addViewer(email);
+  });
+  logAudit_('share', fileId, role + ' x' + emails.length + ' (' + a + ')');
+  return { shared: emails.length, role: role, access: a };
+}
+
+/**
+ * Upsert de una fila en Documents (match por codigo o doc_id). Sólo escribe las
+ * columnas presentes en `doc`; refresca last_update. Devuelve si insertó o actualizó.
+ * @param {Object} doc  claves = nombres de columna de la pestaña Documents.
+ */
+function upsertDocument_(doc) {
+  const sheet = getSheet_(CONFIG.TABS.DOCUMENTS);
+  const values = sheet.getDataRange().getValues();
+  const header = values[0];
+  const idx = {};
+  header.forEach(function (h, i) { idx[h] = i; });
+
+  let rowNum = -1;
+  for (let i = 1; i < values.length; i++) {
+    const byCode = doc.codigo && idx.codigo != null && values[i][idx.codigo] === doc.codigo;
+    const byId = doc.doc_id && idx.doc_id != null && values[i][idx.doc_id] === doc.doc_id;
+    if (byCode || byId) { rowNum = i + 1; break; }
+  }
+
+  const stamp = nowIso_();
+  if (rowNum === -1) {
+    const row = header.map(function (h) {
+      if (h in doc) return doc[h];
+      if (h === 'last_update') return stamp;
+      return '';
+    });
+    sheet.appendRow(row);
+    logAudit_('register_new', doc.codigo || doc.doc_id || '', 'append');
+    return { upserted: 'insert', codigo: doc.codigo || '' };
+  }
+
+  Object.keys(doc).forEach(function (k) {
+    if (k in idx) sheet.getRange(rowNum, idx[k] + 1).setValue(doc[k]);
+  });
+  if ('last_update' in idx) sheet.getRange(rowNum, idx.last_update + 1).setValue(stamp);
+  logAudit_('register_update', doc.codigo || doc.doc_id || '', 'row ' + rowNum);
+  return { upserted: 'update', row: rowNum };
+}
+
 /* ────────────────────────────────────────────────────────────────────────
  * HELPERS
  * ──────────────────────────────────────────────────────────────────────── */
@@ -260,9 +344,24 @@ function jsonOut_(obj) {
  * TEST — para correr desde el editor sin desplegar el web app.
  * ──────────────────────────────────────────────────────────────────────── */
 
+/** Simula un POST arbitrario (helper). */
+function simulatePost_(payload) {
+  payload.token = CONFIG.WEBHOOK_TOKEN;
+  return doPost({ postData: { contents: JSON.stringify(payload) } }).getContent();
+}
+
 /** Simula un POST de snapshot. Cambiar TEST_FILE_ID por un archivo real del dataroom. */
 function test_doPost() {
   const TEST_FILE_ID = 'PEGAR_UN_DRIVE_FILE_ID_DE_PRUEBA';
-  const fake = { postData: { contents: JSON.stringify({ action: 'snapshot', fileId: TEST_FILE_ID, token: CONFIG.WEBHOOK_TOKEN }) } };
-  Logger.log(doPost(fake).getContent());
+  Logger.log(simulatePost_({ action: 'snapshot', fileId: TEST_FILE_ID }));
+}
+
+/** Simula un POST de share (comparte con el rol indicado). */
+function test_share() {
+  Logger.log(simulatePost_({ action: 'share', fileId: 'PEGAR_UN_DRIVE_FILE_ID_DE_PRUEBA', role: 'VVB', access: 'view' }));
+}
+
+/** Simula un POST de register (upsert en Documents). */
+function test_register() {
+  Logger.log(simulatePost_({ action: 'register', document: { codigo: 'MJM-FB-PR-INF-004-V0', stage: 'APPROVED_FOR_VVB', drive_file_id: 'PEGAR_ID' } }));
 }

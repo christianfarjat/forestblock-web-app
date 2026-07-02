@@ -18,11 +18,12 @@ ente-documental-stack/
 │   ├── appsscript.json
 │   ├── .clasp.json.example
 │   └── README.md
-├── builders/                       # generadores de los .xlsx (Python + openpyxl)
-│   ├── build_appsheet_schema.py    # -> backend AppSheet (5 pestañas)
-│   ├── build_checklist.py          # -> checklist Verra por sprint
+├── builders/                       # generadores de entregables (Python)
+│   ├── build_appsheet_schema.py    # -> backend AppSheet (5 pestañas) · openpyxl
+│   ├── build_checklist.py          # -> checklist Verra por sprint (--metodologia) · openpyxl
+│   ├── build_docs.py               # -> .docx: índice + esqueletos · python-docx
 │   ├── requirements.txt
-│   └── output/                     # .xlsx generados (gitignored)
+│   └── output/                     # .xlsx/.docx generados (gitignored)
 ├── runbooks/
 │   ├── DEPLOYMENT_RUNBOOK.md        # corrida completa (repo → Drive → Sheet → deploy)
 │   └── POBLADO_DATAROOM.md          # Fase 2: subir binarios a las carpetas
@@ -33,15 +34,17 @@ ente-documental-stack/
 
 1. **`builders/`** generan el backend `.xlsx` y el checklist a partir de `config/`.
 2. **Fase 3** convierte el backend a **Google Sheet** nativo → se obtiene el `SHEET_ID`.
-3. **`appsscript/Dataroom.gs`** lee ese Sheet y expone un **webhook**; el Bot de AppSheet
-   lo llama cuando un documento pasa a `Approved for VVB` y se genera un **snapshot** inmutable.
+3. **`appsscript/Dataroom.gs`** lee ese Sheet y expone un **webhook** con acciones
+   `snapshot` (copia inmutable al aprobar para VVB), `share` (comparte por rol) y
+   `register` (upsert en `Documents`), disparadas por el Bot de AppSheet.
 
 ## Quickstart (local)
 
 ```bash
 pip install -r builders/requirements.txt
 python3 builders/build_appsheet_schema.py
-python3 builders/build_checklist.py
+python3 builders/build_checklist.py          # o: --metodologia VM0032
+python3 builders/build_docs.py               # índice + esqueletos .docx
 # luego seguí runbooks/DEPLOYMENT_RUNBOOK.md
 ```
 

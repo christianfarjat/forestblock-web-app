@@ -36,6 +36,19 @@ clasp deploy --description "web app v1"
 ```
 
 `clasp deploy` imprime el **/exec URL** del web app: esa es la URL del webhook para el Bot de AppSheet.
+Abrir esa URL en el navegador (GET) devuelve un healthcheck JSON, no un error.
+
+## Acciones del webhook (POST con `token`)
+
+| action | Campos | Efecto |
+|---|---|---|
+| `snapshot` | `fileId` | Copia inmutable del archivo en `C_Snapshots_VVB`; registra en `Snapshots` + `Audit_Log`. |
+| `share` | `fileId`, `role`, `access` (`view`/`comment`/`edit`) | Comparte el archivo con los emails del rol; registra en `Audit_Log`. |
+| `register` | `document` (obj con columnas de `Documents`) | Upsert de la fila en `Documents` (match por `codigo`/`doc_id`). |
+| `ping` | — | Healthcheck. |
+
+Todas exigen `"token":"<CONFIG.WEBHOOK_TOKEN>"`. Para probar desde el editor sin desplegar:
+`test_doPost()`, `test_share()`, `test_register()`.
 
 ## Pasos manuales (por diseño de las plataformas, no automatizables por CLI)
 
@@ -45,6 +58,8 @@ clasp deploy --description "web app v1"
    - Event: `Documents` con `stage = "Approved for VVB"`.
    - Action: *Call a webhook* → URL del deploy (`/exec`).
    - Body: `{"action":"snapshot","fileId":"<<[drive_file_id]>>","token":"<CONFIG.WEBHOOK_TOKEN>"}`
+   - (Opcional) segundo bot en `stage = "Shared with VVB"` →
+     `{"action":"share","fileId":"<<[drive_file_id]>>","role":"VVB","access":"comment","token":"<...>"}`
 
 ## Nota de seguridad
 
