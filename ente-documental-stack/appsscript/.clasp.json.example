@@ -1,0 +1,5 @@
+{
+  "$comment": "Copiar a .clasp.json (que está gitignored). El scriptId lo genera 'clasp create'. rootDir apunta a esta carpeta appsscript/.",
+  "scriptId": "PEGAR_SCRIPT_ID_DESPUES_DE_clasp_create",
+  "rootDir": "."
+}

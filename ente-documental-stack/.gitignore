@@ -1,0 +1,34 @@
+# ── Binarios / entregables ────────────────────────────────────────────────
+# Los .docx/.xlsx se editan o se generan con builders/; NO se versionan.
+*.docx
+*.xlsx
+*.xlsm
+*.pptx
+*.pdf
+*.zip
+
+# Salida de builders (mantiene la carpeta, ignora el contenido)
+builders/output/*
+!builders/output/.gitkeep
+
+# ── Credenciales / secretos — NUNCA versionar ─────────────────────────────
+.clasp.json
+.clasprc.json
+client_secret*.json
+credentials.json
+token.json
+service-account*.json
+*.pem
+*.key
+.env
+.env.*
+
+# ── Python ────────────────────────────────────────────────────────────────
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# ── OS / editor ───────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
