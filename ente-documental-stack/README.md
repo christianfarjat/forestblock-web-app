@@ -19,9 +19,9 @@ ente-documental-stack/
 │   ├── .clasp.json.example
 │   └── README.md
 ├── builders/                       # generadores de entregables (Python)
-│   ├── build_appsheet_schema.py    # -> backend AppSheet (5 pestañas) · openpyxl
+│   ├── build_appsheet_schema.py    # -> backend AppSheet (7 pestañas) · openpyxl
 │   ├── build_checklist.py          # -> checklist Verra por sprint (--metodologia) · openpyxl
-│   ├── build_docs.py               # -> .docx: índice + esqueletos · python-docx
+│   ├── build_docs.py               # -> .docx: índice + esqueletos + PDD por sprint · python-docx
 │   ├── requirements.txt
 │   └── output/                     # .xlsx/.docx generados (gitignored)
 ├── runbooks/
@@ -44,7 +44,7 @@ ente-documental-stack/
 pip install -r builders/requirements.txt
 python3 builders/build_appsheet_schema.py
 python3 builders/build_checklist.py          # o: --metodologia VM0032
-python3 builders/build_docs.py               # índice + esqueletos .docx
+python3 builders/build_docs.py               # índice + esqueletos + PDD por sprint (.docx)
 # luego seguí runbooks/DEPLOYMENT_RUNBOOK.md
 ```
 

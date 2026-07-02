@@ -6,11 +6,13 @@ Genera el workbook backend que en Fase 3 se convierte a Google Sheet nativo y
 alimenta tanto la app de AppSheet como el Apps Script (appsscript/Dataroom.gs).
 
 Pestañas (los nombres deben coincidir con CONFIG.TABS de Dataroom.gs):
-  - Documents   : registro documental (pre-cargado desde config/dataroom.config.json)
-  - Roles       : rol -> email -> scope
-  - Stages      : catálogo de estados (uno dispara el snapshot)
-  - Snapshots   : log de copias inmutables (lo llena el webhook)
-  - Audit_Log   : bitácora de eventos (lo llena el Apps Script)
+  - Documents      : registro documental (pre-cargado desde config/dataroom.config.json)
+  - Roles          : rol -> email -> scope
+  - Stages         : catálogo de estados (uno dispara el snapshot)
+  - Access_Matrix  : acceso por rol y carpeta (config sembrada; la lee el webhook)
+  - Snapshots      : log de copias inmutables (lo llena el webhook)
+  - Shares         : log de comparticiones por rol (lo llena el webhook)
+  - Audit_Log      : bitácora de eventos (lo llena el Apps Script)
 
 Uso:
     python3 build_appsheet_schema.py
@@ -42,6 +44,17 @@ STAGES = [
     ("APPROVED_FOR_VVB", "Approved for VVB", 3, "TRUE"),
     ("SHARED_WITH_VVB", "Shared with VVB", 4, "FALSE"),
     ("VERIFIED", "Verified", 5, "FALSE"),
+]
+
+# Matriz de accesos por rol y carpeta (config). La lee Dataroom.gs (getAccessForRole_).
+ACCESS = ["view", "comment", "edit"]
+ACCESS_MATRIX = [
+    ("INTERNAL", "INTERNAL", "A_Expediente_Interno/01_PDD", "edit", "Equipo interno: control total"),
+    ("INTERNAL", "INTERNAL", "A_Expediente_Interno/00_Base_Habilitantes", "edit", ""),
+    ("VVB", "EXTERNAL", "A_Expediente_Interno/01_PDD", "comment", "Validador: comenta el PDD aprobado"),
+    ("VVB", "EXTERNAL", "A_Expediente_Interno/00_Base_Habilitantes", "view", ""),
+    ("BUYERS", "EXTERNAL", "A_Expediente_Interno/01_PDD", "view", "Compradores: sólo lectura de lo publicado"),
+    ("AUDITOR", "EXTERNAL", "A_Expediente_Interno/01_PDD", "view", "Auditoría: sólo lectura"),
 ]
 
 
@@ -137,6 +150,18 @@ def build_stages(ws):
     autosize(ws, [22, 24, 8, 20])
 
 
+def build_access_matrix(ws):
+    headers = ["role", "scope", "carpeta", "access", "notas"]
+    ws.append(headers)
+    for row in ACCESS_MATRIX:
+        ws.append(list(row))
+    style_header(ws, len(headers))
+    autosize(ws, [14, 12, 40, 12, 40])
+    dv = DataValidation(type="list", formula1='"' + ",".join(ACCESS) + '"', allow_blank=True)
+    ws.add_data_validation(dv)
+    dv.add(f"D2:D{ws.max_row}")
+
+
 def build_empty(ws, headers, widths):
     ws.append(headers)
     style_header(ws, len(headers))
@@ -153,10 +178,16 @@ def main():
 
     build_roles(wb.create_sheet("Roles"), cfg)
     build_stages(wb.create_sheet("Stages"))
+    build_access_matrix(wb.create_sheet("Access_Matrix"))
     build_empty(
         wb.create_sheet("Snapshots"),
         ["snapshot_id", "source_file_id", "source_name", "snapshot_file_id", "snapshot_url", "created_at", "triggered_by"],
         [24, 20, 40, 20, 24, 22, 16],
+    )
+    build_empty(
+        wb.create_sheet("Shares"),
+        ["share_id", "file_id", "file_name", "role", "email", "access", "shared_at", "shared_by"],
+        [24, 20, 40, 14, 30, 12, 22, 16],
     )
     build_empty(
         wb.create_sheet("Audit_Log"),

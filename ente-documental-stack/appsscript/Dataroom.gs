@@ -53,7 +53,9 @@ const CONFIG = {
     DOCUMENTS: 'Documents',
     ROLES: 'Roles',
     STAGES: 'Stages',
+    ACCESS_MATRIX: 'Access_Matrix',
     SNAPSHOTS: 'Snapshots',
+    SHARES: 'Shares',
     AUDIT: 'Audit_Log',
   },
 };
@@ -160,7 +162,7 @@ function doPost(e) {
 
     if (action === 'share') {
       if (!body.fileId || !body.role) return jsonOut_({ ok: false, error: 'Faltan fileId/role.' });
-      return jsonOut_({ ok: true, action: 'share', result: shareWithRole_(body.fileId, body.role, body.access || 'view') });
+      return jsonOut_({ ok: true, action: 'share', result: shareWithRole_(body.fileId, body.role, body.access, actor) });
     }
 
     if (action === 'register') {
@@ -242,25 +244,47 @@ function getRoleEmails_(role) {
 }
 
 /**
- * Comparte un archivo con todos los emails cargados para un rol.
- * @param {string} access  'view' | 'comment' | 'edit'
+ * Comparte un archivo con todos los emails cargados para un rol y registra en Shares.
+ * Si no se pasa `access`, se resuelve desde la pestaña Access_Matrix (default 'view').
+ * @param {string=} access  'view' | 'comment' | 'edit'
  * @return {{shared:number, role:string, access:string}}
  */
-function shareWithRole_(fileId, role, access) {
+function shareWithRole_(fileId, role, access, actor) {
+  const a = String(access || getAccessForRole_(role) || 'view').toLowerCase();
   const emails = getRoleEmails_(role);
   if (!emails.length) {
     logAudit_('share_skip', fileId, 'rol sin emails: ' + role);
-    return { shared: 0, role: role, access: String(access) };
+    return { shared: 0, role: role, access: a };
   }
   const file = DriveApp.getFileById(fileId);
-  const a = String(access).toLowerCase();
+  const name = file.getName();
   emails.forEach(function (email) {
     if (a === 'edit') file.addEditor(email);
     else if (a === 'comment') file.addCommenter(email);
     else file.addViewer(email);
+    logShare_(fileId, name, role, email, a, actor || 'appsheet-bot');
   });
   logAudit_('share', fileId, role + ' x' + emails.length + ' (' + a + ')');
   return { shared: emails.length, role: role, access: a };
+}
+
+/**
+ * Acceso por defecto de un rol según la pestaña Access_Matrix (primera fila que matchea).
+ * @return {string} 'view' | 'comment' | 'edit' | '' si no hay match / sin backend.
+ */
+function getAccessForRole_(role) {
+  const key = String(role || '').toUpperCase();
+  if (!CONFIG.SHEET_ID) return '';
+  try {
+    const rows = getSheet_(CONFIG.TABS.ACCESS_MATRIX).getDataRange().getValues();
+    // Header: [role, scope, carpeta, access, notas]
+    for (let i = 1; i < rows.length; i++) {
+      if (String(rows[i][0]).toUpperCase() === key && rows[i][3]) return String(rows[i][3]).trim();
+    }
+  } catch (err) {
+    // sin Access_Matrix -> default afuera
+  }
+  return '';
 }
 
 /**
@@ -324,6 +348,11 @@ function appendRow_(tabName, rowArray) {
 function logAudit_(action, target, details) {
   if (!CONFIG.SHEET_ID) return; // sin backend no hay dónde loguear
   appendRow_(CONFIG.TABS.AUDIT, [Utilities.getUuid(), nowIso_(), Session.getActiveUser().getEmail(), action, target, details || '']);
+}
+
+function logShare_(fileId, fileName, role, email, access, actor) {
+  if (!CONFIG.SHEET_ID) return; // sin backend no hay dónde loguear
+  appendRow_(CONFIG.TABS.SHARES, [Utilities.getUuid(), fileId, fileName, role, email, access, nowIso_(), actor]);
 }
 
 function getSnapshotsFolder_() {

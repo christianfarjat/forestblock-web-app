@@ -43,7 +43,7 @@ Abrir esa URL en el navegador (GET) devuelve un healthcheck JSON, no un error.
 | action | Campos | Efecto |
 |---|---|---|
 | `snapshot` | `fileId` | Copia inmutable del archivo en `C_Snapshots_VVB`; registra en `Snapshots` + `Audit_Log`. |
-| `share` | `fileId`, `role`, `access` (`view`/`comment`/`edit`) | Comparte el archivo con los emails del rol; registra en `Audit_Log`. |
+| `share` | `fileId`, `role`, `access` (opcional) | Comparte con los emails del rol; si se omite `access`, lo resuelve desde `Access_Matrix` (default `view`); registra en `Shares` + `Audit_Log`. |
 | `register` | `document` (obj con columnas de `Documents`) | Upsert de la fila en `Documents` (match por `codigo`/`doc_id`). |
 | `ping` | — | Healthcheck. |
 
