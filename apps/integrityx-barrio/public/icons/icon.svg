@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#182D1F"/>
+  <!-- casitas del barrio -->
+  <g fill="#BFF179">
+    <path d="M96 296l72-64 72 64v112a12 12 0 0 1-12 12H108a12 12 0 0 1-12-12z"/>
+    <path d="M272 268l88-78 88 78v128a24 24 0 0 1-24 24h-128a24 24 0 0 1-24-24z" fill="#DAFAA1"/>
+  </g>
+  <!-- hoja / check de integridad -->
+  <path d="M156 180c44-64 116-88 200-84-4 84-28 156-92 200-38 26-84 24-108-8-24-34-26-70 0-108z" fill="#CAF187"/>
+  <path d="M170 268c40-52 84-90 150-124" stroke="#182D1F" stroke-width="18" stroke-linecap="round" fill="none"/>
+</svg>

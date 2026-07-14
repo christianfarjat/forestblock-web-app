@@ -1,0 +1,18 @@
+{
+  "name": "IntegrityX Barrio — MRV de barrios sustentables",
+  "short_name": "IX Barrio",
+  "description": "Medición, monitoreo y preparación de certificación de sustentabilidad para barrios de viviendas. ForestBlock / IntegrityX.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FCFFF6",
+  "theme_color": "#182D1F",
+  "lang": "es-AR",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

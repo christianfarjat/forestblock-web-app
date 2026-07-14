@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --fb-forest: #182d1f;
+  --fb-cream: #fcfff6;
+  --fb-lime: #bff179;
+  --fb-lime-soft: #dafaa1;
+  --fb-grey: #76756e;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--fb-cream);
+  color: var(--fb-forest);
+  font-family: var(--font-aeonik), 'Manrope', system-ui, -apple-system, 'Segoe UI', Arial,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #ccc #f1f1f1;
+}
+
+/* Recharts dentro de cards ForestBlock */
+.recharts-default-tooltip {
+  border-radius: 12px !important;
+  border: 1px solid #e0e0e0 !important;
+  font-family: inherit !important;
+}
