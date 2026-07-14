@@ -3,7 +3,7 @@ import { useAuth } from '@/context/AuthContext';
 import { LuLayoutDashboard, LuLayoutGrid, LuPlug } from 'react-icons/lu';
 import { FaCarSide, FaRegBuilding, FaStar, FaRocket } from 'react-icons/fa';
 import { IoMdCart, IoLogoWhatsapp } from 'react-icons/io';
-import { MdOutlineForest } from 'react-icons/md';
+import { MdOutlineForest, MdOutlineHolidayVillage } from 'react-icons/md';
 import { IoCloudyOutline, IoVideocam } from 'react-icons/io5';
 import { loom_video } from '@/constants';
 import type { MenuItem } from '@/components/Sidebar/types';
@@ -79,7 +79,16 @@ export function useMenuItems(): MenuItem[] {
         queryKeys: [],
       },
 
-      // -------- NEW FEATURE (4..5)
+      // -------- INTEGRITYX (4)
+      {
+        href: '/integrityx-barrio',
+        label: 'IntegrityX Barrio',
+        icon: <MdOutlineHolidayVillage size={20} />,
+        nestedRoutes: [],
+        queryKeys: [],
+      },
+
+      // -------- NEW FEATURE (5..6)
       {
         href: '/new-feature',
         label: 'New Feature',
@@ -95,7 +104,7 @@ export function useMenuItems(): MenuItem[] {
         queryKeys: [],
       },
 
-      // -------- INFO (6..)
+      // -------- INFO (7..)
       {
         href: loom_video,
         label: 'Videotutoriales',

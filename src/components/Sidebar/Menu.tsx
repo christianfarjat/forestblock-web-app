@@ -7,21 +7,18 @@ import { useModal } from '@/context/ModalContext';
 import LogoutButton from './LogoutButton';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
-const Menu: React.FC<MenuProps> = ({
-  menuItems,
-  isAuthenticated,
-  isActive,
-  onItemClick, // lo dejamos pero no lo usamos
-  logout,
-}) => {
+// onItemClick sigue en MenuProps (lo pasa MobileMenu) pero acá no se usa:
+// la navegación la resuelve <Link> directamente.
+const Menu: React.FC<MenuProps> = ({ menuItems, isAuthenticated, isActive, logout }) => {
   const leftOffset = isAuthenticated ? '-left-10' : '-left-[2.5rem]';
   const { openModal } = useModal();
   const [openSubMenu, setOpenSubMenu] = useState<string | null>(null);
 
   const forestTrackItems = menuItems.slice(0, 2);
   const forestxItems = menuItems.slice(2, 4);
-  const newFeatureItems = menuItems.slice(4, 6);
-  const infoItems = menuItems.slice(6); // toma el resto
+  const integrityxItems = menuItems.slice(4, 5);
+  const newFeatureItems = menuItems.slice(5, 7);
+  const infoItems = menuItems.slice(7); // toma el resto
 
   const handleItemClick = (item: MenuItem, e: React.MouseEvent<HTMLAnchorElement>) => {
     if (item.children && item.children.length > 0) {
@@ -91,6 +88,9 @@ const Menu: React.FC<MenuProps> = ({
 
       <span className="px-2 py-2 text-[18px] font-aeonik mt-6">FORESTX</span>
       {forestxItems.map((item) => renderMenuItem(item))}
+
+      <span className="px-2 py-2 text-[18px] font-aeonik mt-6">INTEGRITYX</span>
+      {integrityxItems.map((item) => renderMenuItem(item))}
 
       <span className="px-2 py-2 text-[18px] font-aeonik mt-6">NEW FEATURE</span>
       {newFeatureItems.map((item) => renderMenuItem(item))}

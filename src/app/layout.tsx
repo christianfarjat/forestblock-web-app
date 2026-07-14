@@ -2,6 +2,7 @@
 import './globals.css';
 import 'leaflet/dist/leaflet.css';
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 
 import { AuthProvider } from '@/context/AuthContext';
 import { RetireProvider } from '@/context/RetireContext';
@@ -25,8 +26,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {/* 👈 envuelve todo lo que usa useModal */}
               <AuthGuard>
                 <div className="flex">
-                  <DesktopSidebar />
-                  <main className="flex-1">{children}</main>
+                  {/* useSearchParams (dentro del sidebar) exige Suspense para el prerender estático */}
+                  <Suspense fallback={null}>
+                    <DesktopSidebar />
+                  </Suspense>
+                  <main className="flex-1">
+                    <Suspense fallback={null}>{children}</Suspense>
+                  </main>
                 </div>
               </AuthGuard>
             </ModalProvider>

@@ -12,6 +12,7 @@ const PUBLIC: (string | RegExp)[] = [
   '/new-feature',
   '/new-feature/future',
   /^\/new-feature\/preorder(\/.*)?$/,
+  '/integrityx-barrio',
   '/_next',
   '/assets',
 ];
@@ -25,11 +26,11 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
   // 🔓 En desarrollo no bloqueamos nada
-  if (process.env.NEXT_PUBLIC_ENVIRONMENT === 'development') {
-    return <>{children}</>;
-  }
+  const esDesarrollo = process.env.NEXT_PUBLIC_ENVIRONMENT === 'development';
 
   useEffect(() => {
+    if (esDesarrollo) return;
+
     // Permitidas sin auth
     if (isAllowed(pathname, PUBLIC)) return;
 
@@ -37,7 +38,7 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
     if (!isAuthenticated) {
       router.replace('/marketplace');
     }
-  }, [isAuthenticated, pathname, router]);
+  }, [esDesarrollo, isAuthenticated, pathname, router]);
 
   return <>{children}</>;
 }

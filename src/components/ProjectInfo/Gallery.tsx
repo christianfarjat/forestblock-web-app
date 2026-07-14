@@ -1,10 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { useGallery } from "@/hooks/useGallery";
 import { GalleryProps } from "./types";
-import Thumbnail from "./Thumbnail";
-import MapView from "./MapView";
+
+// react-leaflet no soporta SSR (leaflet usa `window` al importarse)
+const Thumbnail = dynamic(() => import("./Thumbnail"), { ssr: false });
+const MapView = dynamic(() => import("./MapView"), { ssr: false });
 
 const Gallery = ({ images, location }: GalleryProps) => {
   const {

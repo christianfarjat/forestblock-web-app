@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>IntegrityX Barrio — MRV de barrios de viviendas sustentables</title>
+<meta name="description" content="Medí, monitoreá y prepará la certificación de sustentabilidad de tu barrio. Huella ISO 14064-1 por vivienda y del barrio, evidencia verificada y sellado en blockchain. Módulo de IntegrityX · ForestBlock." />
+<meta property="og:title" content="IntegrityX Barrio — MRV de barrios sustentables" />
+<meta property="og:description" content="Cada vivienda carga sus datos; el barrio se evalúa en conjunto. Datos verificados y sellados con hash en blockchain. La certificación la emite un tercero — nosotros la preparamos." />
+<meta property="og:type" content="website" />
+<!--
+  Landing autocontenida (sin requests externos) para la web de IntegrityX.
+  · Publicar tal cual (p. ej. integrityx.com/barrio) o copiar secciones al CMS.
+  · Reemplazar los href CTA_MODULO por la URL real del módulo desplegado.
+  · Tipografía: usa Aeonik si el sitio la carga; cae a system-ui si no.
+-->
+<style>
+  :root{
+    --forest:#182D1F; --ink:#192C1F; --moss:#55655B; --cream:#FCFFF6;
+    --lime:#BFF179; --lime-soft:#DAFAA1; --sage:#B2D675; --mint:#CAF187;
+    --grey:#76756E; --bg:#F7F7F5; --border:#E0E0E0;
+    --declared:#B98A17; --verified:#2F7D46; --audited:#1D62A8;
+    --r-card:28px; --r-sm:18px;
+    --shadow:0 10px 26px rgba(25,44,31,.10);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--cream); color:var(--forest);
+    font-family:'Aeonik','Manrope',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+    -webkit-font-smoothing:antialiased; line-height:1.55;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  .pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 12px;font-size:12.5px;font-weight:500}
+  .btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:13px 26px;font-size:15px;font-weight:500;transition:transform .15s ease, background .15s ease}
+  .btn:hover{transform:translateY(-1px)}
+  .btn-lime{background:var(--lime);color:var(--forest)}
+  .btn-lime:hover{background:var(--lime-soft)}
+  .btn-outline{border:1px solid rgba(252,255,246,.4);color:var(--cream)}
+  .btn-outline:hover{background:rgba(255,255,255,.08)}
+  .btn-forest{background:var(--forest);color:var(--lime)}
+  h1,h2,h3{font-weight:500;line-height:1.15}
+  section{padding:64px 0}
+  .kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--moss);margin-bottom:10px}
+
+  /* Header */
+  header{position:sticky;top:0;z-index:50;background:rgba(252,255,246,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
+  .nav{display:flex;align-items:center;gap:16px;padding:14px 0}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px}
+  .brand .logo{width:36px;height:36px;border-radius:12px;background:var(--forest);display:grid;place-items:center;color:var(--lime)}
+  .brand .tag{background:var(--lime);border-radius:999px;padding:2px 10px;font-size:12px;font-weight:600}
+  .nav nav{margin-left:auto;display:flex;gap:4px;align-items:center}
+  .nav nav a{padding:8px 12px;border-radius:999px;font-size:14px}
+  .nav nav a:hover{background:var(--lime-soft)}
+  .nav .cta{background:var(--forest);color:var(--lime)}
+  .nav .cta:hover{background:#0f1f15}
+  @media(max-width:760px){.nav nav a:not(.cta){display:none}}
+
+  /* Hero */
+  .hero{background:var(--forest);color:var(--cream);border-radius:var(--r-card);margin-top:24px;padding:56px 48px;position:relative;overflow:hidden}
+  .hero::after{content:'';position:absolute;right:-120px;top:-120px;width:380px;height:380px;border-radius:50%;background:radial-gradient(closest-side, rgba(191,241,121,.25), transparent)}
+  .hero h1{font-size:clamp(30px,4.6vw,52px);max-width:15ch}
+  .hero h1 em{font-style:normal;color:var(--lime)}
+  .hero p.lead{margin-top:18px;max-width:56ch;color:rgba(252,255,246,.85);font-size:clamp(15px,1.6vw,18px)}
+  .hero .ctas{margin-top:28px;display:flex;flex-wrap:wrap;gap:12px}
+  .hero .badges{display:flex;flex-wrap:wrap;gap:8px}
+  .hero .foot{margin-top:26px;font-size:12.5px;color:rgba(252,255,246,.6)}
+  @media(max-width:640px){.hero{padding:36px 24px}}
+
+  /* Stats strip */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:-34px;position:relative;z-index:2}
+  .stat{background:#fff;border:1px solid var(--border);border-radius:var(--r-sm);padding:18px 20px;box-shadow:var(--shadow)}
+  .stat b{display:block;font-size:22px;font-weight:500}
+  .stat span{font-size:13px;color:var(--grey)}
+
+  /* Cards */
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+  .card{background:#fff;border:1px solid var(--border);border-radius:var(--r-card);padding:28px;box-shadow:var(--shadow)}
+  .card .ico{font-size:34px}
+  .card h3{margin-top:10px;font-size:19px}
+  .card .who{font-size:12.5px;color:var(--moss);margin-top:2px}
+  .card p{margin-top:10px;font-size:14.5px;color:#4a4a4a}
+  .card ul{margin:10px 0 0 18px;font-size:14px;color:#4a4a4a}
+  .card li{margin-top:4px}
+
+  /* Steps */
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;counter-reset:paso}
+  .step{background:var(--bg);border-radius:var(--r-sm);padding:20px}
+  .step .n{width:30px;height:30px;border-radius:50%;background:var(--forest);color:var(--lime);display:grid;place-items:center;font-size:13px;font-weight:600}
+  .step h4{margin-top:10px;font-size:15.5px}
+  .step p{margin-top:6px;font-size:13.5px;color:var(--grey)}
+  .estado{display:inline-block;border-radius:999px;padding:2px 10px;font-size:12px;font-weight:600}
+  .e1{background:#FBF3DD;color:var(--declared)} .e2{background:#E7F4EA;color:var(--verified)} .e3{background:#E3EDF7;color:var(--audited)}
+
+  /* Features */
+  .feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+  .feat{display:flex;gap:14px;background:#fff;border:1px solid var(--border);border-radius:var(--r-sm);padding:18px 20px}
+  .feat .fi{flex:none;width:42px;height:42px;border-radius:14px;background:var(--lime-soft);display:grid;place-items:center;font-size:20px}
+  .feat h4{font-size:15px}
+  .feat p{margin-top:4px;font-size:13.5px;color:var(--grey)}
+
+  /* Honestidad */
+  .honesto{background:var(--lime-soft);border-radius:var(--r-card);padding:40px 44px;display:flex;flex-wrap:wrap;gap:24px;align-items:center}
+  .honesto .txt{flex:1;min-width:280px}
+  .honesto h2{font-size:clamp(22px,3vw,30px);max-width:24ch}
+  .honesto p{margin-top:10px;font-size:15px;color:var(--ink)}
+
+  /* CTA final */
+  .cta-final{background:var(--forest);color:var(--cream);border-radius:var(--r-card);padding:52px 44px;text-align:center}
+  .cta-final h2{font-size:clamp(24px,3.4vw,36px)}
+  .cta-final p{margin:12px auto 0;max-width:52ch;color:rgba(252,255,246,.8);font-size:15px}
+  .cta-final .ctas{margin-top:26px;display:flex;justify-content:center;flex-wrap:wrap;gap:12px}
+
+  footer{border-top:1px solid var(--border);padding:26px 0 40px;font-size:12.5px;color:var(--grey)}
+  footer .row{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="IntegrityX Barrio">
+      <span class="logo">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 11.5 7 8l4 3.5V20H3v-8.5ZM13 10l4.5-4L22 10v10h-9V10Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M6.2 20v-3.4h1.6V20M16.6 20v-3.8h2V20" stroke="currentColor" stroke-width="1.7"/></svg>
+      </span>
+      IntegrityX <span class="tag">Barrio</span>
+    </a>
+    <nav>
+      <a href="#superficies">Producto</a>
+      <a href="#integridad">Integridad</a>
+      <a href="#features">Características</a>
+      <a class="cta" href="#contacto">Solicitar demo</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top" class="wrap">
+
+  <!-- HERO -->
+  <section style="padding-bottom:0">
+    <div class="hero">
+      <div class="badges">
+        <span class="pill" style="background:var(--lime);color:var(--forest)">Módulo IntegrityX</span>
+        <span class="pill" style="border:1px solid rgba(252,255,246,.35);color:rgba(252,255,246,.85)">ForestBlock Suite</span>
+      </div>
+      <h1 style="margin-top:18px">Tu barrio sustentable, <em>medido y demostrable</em>.</h1>
+      <p class="lead">
+        Cada vivienda carga sus datos en minutos; el barrio se evalúa en conjunto:
+        huella de carbono <strong>ISO 14064-1</strong>, indicadores y adecuación a estándares
+        (EDGE · SITES). La evidencia se verifica y se <strong>sella con hash en blockchain</strong>,
+        lista para el certificador.
+      </p>
+      <div class="ctas">
+        <!-- CTA_MODULO: reemplazar por la URL real del módulo desplegado -->
+        <a class="btn btn-lime" href="https://barrio.integrityx.app" target="_blank" rel="noopener">Ver la app en acción →</a>
+        <a class="btn btn-outline" href="#contacto">Hablar con el equipo</a>
+      </div>
+      <p class="foot">Nace en los barrios de MJM Inversiones: Tres Pinos · Laguna de las Pampas · Chacras de San Andrés</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><b>3 roles, 3 superficies</b><span>Residentes, gestión y equipo técnico — una sola fuente de datos</span></div>
+      <div class="stat"><b>ISO 14064-1 + GHG</b><span>Inventario por categorías y scopes, con factores citados</span></div>
+      <div class="stat"><b>Sellado on-chain</b><span>Hash SHA-256 anclado en cadena pública, verificable por cualquiera</span></div>
+      <div class="stat"><b>PWA web y móvil</b><span>Instalable, pensada para cargar datos aún con poca señal</span></div>
+    </div>
+  </section>
+
+  <!-- SUPERFICIES -->
+  <section id="superficies">
+    <p class="kicker">El producto</p>
+    <h2 style="font-size:clamp(24px,3.2vw,34px);max-width:28ch">Una app para todo el barrio — simple para vecinos, rigurosa para técnicos.</h2>
+    <div class="grid3" style="margin-top:26px">
+      <div class="card">
+        <div class="ico">🏡</div>
+        <h3>Portal Residente</h3>
+        <div class="who">Propietarios y familias — sin jerga</div>
+        <p>Carga guiada mensual con la factura en la mano, foto de evidencia y tu huella explicada con comparaciones cotidianas.</p>
+        <ul>
+          <li>Wizard de pocos pasos, con ayudas en lenguaje llano</li>
+          <li>Tips personalizados, logros y participación del comité</li>
+          <li>Corrección guiada cuando el equipo técnico observa un dato</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="ico">📊</div>
+        <h3>Backoffice Gestión</h3>
+        <div class="who">Comité · Consorcio · Administración · Desarrollador</div>
+        <p>El barrio en números: evolución de huella, participación, metas y avance de adecuación a estándares, por barrio y multi-barrio.</p>
+        <ul>
+          <li>Metas medibles con datos reales (no promesas)</li>
+          <li>Cuestionario EDGE · ISO 14064 · SITES con score</li>
+          <li>Privacidad por rol: agregados para el comité, detalle para administración</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="ico">🔬</div>
+        <h3>Backoffice Técnico</h3>
+        <div class="who">ForestBlock · Verificador externo (solo lectura)</div>
+        <p>Bandeja de revisión con evidencia, estados del dato, factores de emisión con fuente y expediente de certificación exportable.</p>
+        <ul>
+          <li>Doble control: quien audita no es quien verificó</li>
+          <li>Factores Climatiq/IPCC — nunca un número sin fuente</li>
+          <li>Log de auditoría inmutable (append-only)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTEGRIDAD -->
+  <section id="integridad">
+    <p class="kicker">Integridad</p>
+    <h2 style="font-size:clamp(24px,3.2vw,34px);max-width:30ch">Del dato declarado al sello verificable — así se construye confianza.</h2>
+    <div class="steps" style="margin-top:26px">
+      <div class="step">
+        <span class="n">1</span>
+        <h4>Estados del dato</h4>
+        <p><span class="estado e1">Declarado</span> → <span class="estado e2">Verificado</span> → <span class="estado e3">Auditado</span>. Todo número muestra en qué estado está.</p>
+      </div>
+      <div class="step">
+        <span class="n">2</span>
+        <h4>Evidencia y revisión</h4>
+        <p>Facturas y fotos con huella digital propia (SHA-256), revisadas por el equipo técnico con segregación de funciones.</p>
+      </div>
+      <div class="step">
+        <span class="n">3</span>
+        <h4>Sellado en blockchain</h4>
+        <p>Lo verificado se serializa, se hashea y el hash se ancla en cadena pública. Solo el hash: nunca datos personales.</p>
+      </div>
+      <div class="step">
+        <span class="n">4</span>
+        <h4>Verificación pública</h4>
+        <p>Cualquier persona —vecino, auditor, municipio— recalcula el hash y comprueba que nada cambió. Sin cuenta.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <p class="kicker">Características</p>
+    <h2 style="font-size:clamp(24px,3.2vw,34px)">Hecho para medir de verdad.</h2>
+    <div class="feats" style="margin-top:26px">
+      <div class="feat"><span class="fi">🧮</span><div><h4>Motor de huella trazable</h4><p>emisiones = dato de actividad × factor de emisión. Clasificación ISO 14064-1 y GHG Protocol, con el factor y su fuente visibles en cada cálculo.</p></div></div>
+      <div class="feat"><span class="fi">⚖️</span><div><h4>Factores con fuente, siempre</h4><p>Dataset Climatiq (944k+ factores, GWP100) y factores locales argentinos como factores privados. Sin fuente, el sistema no acepta el factor.</p></div></div>
+      <div class="feat"><span class="fi">🌳</span><div><h4>Remociones aparte, sin marketing</h4><p>Lo que el verde absorbe se reporta por separado — nunca se netea contra las emisiones. Capa satelital (GEE/ForestScan) en camino.</p></div></div>
+      <div class="feat"><span class="fi">📑</span><div><h4>Expediente para certificar</h4><p>Snapshot congelado de datos, cálculos y factores, exportable (JSON/CSV) y sellado, listo para EDGE, ISO o SITES.</p></div></div>
+      <div class="feat"><span class="fi">🤖</span><div><h4>IA que ayuda, no inventa</h4><p>OCR que lee tu factura y precarga los números (vos confirmás), asistente en lenguaje simple y detección de anomalías. Con Gemini, en fase 2.</p></div></div>
+      <div class="feat"><span class="fi">🔐</span><div><h4>Privacidad por diseño</h4><p>El consumo de tu casa es tuyo: roles con permisos escalonados, agregados para gestión y solo hashes hacia la cadena.</p></div></div>
+    </div>
+  </section>
+
+  <!-- HONESTIDAD -->
+  <section>
+    <div class="honesto">
+      <div class="txt">
+        <p class="kicker" style="color:var(--forest)">Nuestra regla</p>
+        <h2>La app no certifica. Mide, monitorea y prepara — y eso es exactamente lo que la hace creíble.</h2>
+        <p>La certificación la emite un tercero acreditado. IntegrityX Barrio le entrega el expediente con cada dato trazado: quién lo cargó, quién lo verificó, con qué factor se calculó y su sello de integridad.</p>
+      </div>
+      <a class="btn btn-forest" href="#contacto">Preparar mi barrio →</a>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section id="contacto" style="padding-top:8px">
+    <div class="cta-final">
+      <h2>¿Tu barrio quiere demostrar su sustentabilidad?</h2>
+      <p>Agendá una demo: recorremos las tres superficies con datos de ejemplo y armamos el plan de habilitación para tu barrio o desarrollo.</p>
+      <div class="ctas">
+        <a class="btn btn-lime" href="http://wa.me/1168392460" target="_blank" rel="noopener">💬 Escribinos por WhatsApp</a>
+        <!-- CTA_MODULO: reemplazar por la URL real del módulo desplegado -->
+        <a class="btn btn-outline" href="https://barrio.integrityx.app" target="_blank" rel="noopener">Ver la app en acción</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap row">
+    <span><strong>IntegrityX Barrio</strong> · módulo de IntegrityX — ForestBlock Suite · MJM Inversiones</span>
+    <span>Los datos exhiben su estado de verificación; la certificación la emite un tercero acreditado.</span>
+  </div>
+</footer>
+
+</body>
+</html>

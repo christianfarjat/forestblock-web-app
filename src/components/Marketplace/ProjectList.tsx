@@ -4,7 +4,9 @@ import SkeletonLoader from '@/components/SkeletonLoader/SkeletonLoader';
 import ProjectCard from '@/components/ProjectCard/ProjectCard';
 import { ProjectListProps } from './types';
 import ViewToggle from '../ViewToggle/ViewToggle';
-import MapView from '../ProjectInfo/MapView';
+import dynamic from 'next/dynamic';
+// react-leaflet no soporta SSR (leaflet usa `window` al importarse)
+const MapView = dynamic(() => import('../ProjectInfo/MapView'), { ssr: false });
 import { useGallery } from '@/hooks/useGallery';
 import { FiFilter } from 'react-icons/fi';
 

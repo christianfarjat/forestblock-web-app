@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import L from "leaflet";
+import type { Icon } from "leaflet";
 import { Image as ProjectImage } from "@/types/project";
 import { Location } from "@/types/location";
 
@@ -17,7 +17,12 @@ export const useGallery = ({
     location?.geometry?.coordinates[0] ?? 0,
   ];
 
-  const customIcon = useMemo(() => {
+  const customIcon = useMemo<Icon | undefined>(() => {
+    // leaflet toca `window` al importarse: cargarlo solo en el navegador
+    // (los mapas se montan client-side vía next/dynamic ssr:false).
+    if (typeof window === "undefined") return undefined;
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const L = require("leaflet") as typeof import("leaflet");
     return new L.Icon({
       iconUrl:
         "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",

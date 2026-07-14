@@ -85,5 +85,13 @@ Decisiones clave:
 - OCR de facturas, asistente Gemini, anomalías (BigQuery), capa satelital: Fase 2
   (los puntos de integración están señalados en UI y código).
 
-Mejoras y optimizaciones propuestas sobre el handoff:
-**[docs/MEJORAS_Y_OPTIMIZACIONES.md](docs/MEJORAS_Y_OPTIMIZACIONES.md)**.
+Más documentación:
+
+- **[docs/PRODUCCION.md](docs/PRODUCCION.md)** — puesta en producción paso a paso
+  (deploy, env vars, etapas de conexión de servicios reales, seguridad).
+- **[docs/MEJORAS_Y_OPTIMIZACIONES.md](docs/MEJORAS_Y_OPTIMIZACIONES.md)** — mejoras
+  implementadas y propuestas sobre el handoff.
+- **[integration/README.md](integration/README.md)** — tab de acceso para la app
+  IntegrityX (componente React portable + snippet HTML + patrón SSO).
+- **[landing/index.html](landing/index.html)** — landing autocontenida para la web
+  de IntegrityX.

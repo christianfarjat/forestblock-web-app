@@ -24,8 +24,8 @@ function toFullProject(p: ProjectMinimal): Project {
     price: 0,
     country: '—',
     vintages: [] as number[],
-    methodologies: [{ category: '—' } as any],
-    sustainableDevelopmentGoals: [] as any[],
+    methodologies: [{ category: '—' }] as unknown as Project['methodologies'],
+    sustainableDevelopmentGoals: [] as unknown as Project['sustainableDevelopmentGoals'],
   };
 
   return partial as unknown as Project;
