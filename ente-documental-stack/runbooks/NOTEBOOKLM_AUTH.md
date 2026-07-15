@@ -12,10 +12,25 @@
   CI, contenedores): lanza un navegador Chromium vía CDP y hay que completar el login de
   Google a mano. No existe modo headless.
 
-## Diagnóstico rápido
+> **Copy-paste:** los bloques de este runbook van sin comentarios inline a propósito —
+> zsh interactivo (default de macOS) no trata `#` como comentario y lo pasa como argumento.
+> Copiá los comandos solos.
+
+## Antes que nada: versión
+
+El runbook asume **notebooklm-mcp-cli ≥ 0.8.x** (las 0.5.x difieren en comandos y flags).
+Si ya lo tenés instalado, actualizá primero:
 
 ```bash
-nlm login --check        # estado de las credenciales del perfil activo
+uv tool upgrade notebooklm-mcp-cli
+```
+
+## Diagnóstico rápido
+
+Estado de las credenciales del perfil activo:
+
+```bash
+nlm login --check
 ```
 
 Vía MCP: tool `server_info` → campo `auth_status`:
@@ -52,10 +67,10 @@ nlm login --manual --file /ruta/cookies.txt
 
 Si el entorno remoto es **efímero** (p. ej. Claude Code web): guardá el valor como
 secret/variable del entorno y corré el import en el setup script o en un hook de
-`SessionStart`. Requiere `nlm` instalado:
+`SessionStart`. Requiere `nlm` instalado (alternativa: `pipx install notebooklm-mcp-cli`):
 
 ```bash
-uv tool install notebooklm-mcp-cli   # o: pipx install notebooklm-mcp-cli
+uv tool install notebooklm-mcp-cli
 ```
 
 ## Ojo con `NOTEBOOKLM_COOKIES`
@@ -72,9 +87,11 @@ Si aparece con cookies viejas: actualizala o borrala, y recién después renovà
 
 ## Verificación
 
+`nlm notebook list` es el equivalente CLI del tool MCP `notebook_list`:
+
 ```bash
 nlm login --check
-nlm notebook list        # equivalente al tool MCP notebook_list
+nlm notebook list
 ```
 
 ## Expiración y seguridad
