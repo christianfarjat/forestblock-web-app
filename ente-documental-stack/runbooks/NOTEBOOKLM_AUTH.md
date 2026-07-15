@@ -37,6 +37,11 @@ Vía MCP: tool `server_info` → campo `auth_status`:
 `configured` (OK) · `not_configured` (nunca se logueó) · `stale` (expiró → renovar) ·
 `unverified` (problema de red, no de auth) · `error`.
 
+> **Ojo (visto en la práctica, v0.8.7):** con credenciales vencidas, `nlm login --check`
+> puede reportar `network_error: ClientAuthenticationError` ("could not reach NotebookLM…
+> your saved credentials may still be valid"), como si fuera un problema de red. Si tu
+> conexión anda, tratalo como **auth vencida** y renovà (Opción A o B); el login lo resuelve.
+
 ## Renovación — Opción A: interactiva desde tu Mac (2 min)
 
 Si el MCP/CLI corre en tu propia máquina:
